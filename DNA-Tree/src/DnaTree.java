@@ -4,11 +4,11 @@
  * @version 1.6
  *
  * @param <K> Key value of the tree.
- * @param <E> Element value of the tree.
  */
-public class DnaTree<K extends Comparable<? super K>, E>
+public class DnaTree<K extends Comparable<? super K>>
 {
-    private DnaNode<K, E> root; // Root of DnaTree
+    private DnaNode<K> root; // Root of DnaTree
+    private DnaNode<K> flyweight; // Flyweight
     private int nodecount; // Size of DnaTree
 
     /** Constructor */
@@ -24,9 +24,9 @@ public class DnaTree<K extends Comparable<? super K>, E>
      * @param k Key value of the record.
      * @param e The record to insert.
      */
-    public void insert(K k, E e)
+    public void insert(K k)
     {
-        root = inserthelp(root, k, e);
+        root = inserthelp(root, k);
         nodecount++;
     }
 
@@ -36,41 +36,21 @@ public class DnaTree<K extends Comparable<? super K>, E>
      * @param e The record to insert.
      * @return Returns node inserted
      */
-    private DnaNode<K, E> inserthelp(DnaNode<K, E> rt, K k, E e)
+    private DnaNode<K> inserthelp(DnaNode<K> rt, K k)
     {
         if (rt == null)
         {
-            return new DnaNode<K, E>(k, e);
+            return new DnaNode<K>(k);
         }
         if (rt.key().compareTo(k) > 0)
         {
-            rt.setLeft(inserthelp(rt.left(), k, e));
+            rt.setLeft(inserthelp(rt.left(), k));
         } 
         else
         {
-            rt.setRight(inserthelp(rt.right(), k, e));
+            rt.setRight(inserthelp(rt.right(), k));
         }
         return rt;
-    }
-
-    /**
-     * Remove/return root node from dictionary.
-     * 
-     * @return The record removed, null if empty.
-     */
-    public E removeAny()
-    {
-        if (root != null)
-        {
-            E temp = root.element();
-            root = removehelp(root, root.key());
-            nodecount--;
-            return temp;
-        } 
-        else
-        {
-            return null;
-        }
     }
     
     /**
@@ -91,23 +71,11 @@ public class DnaTree<K extends Comparable<? super K>, E>
     }
     
     /**
-     * Remove a record from the tree.
-     * 
-     * @param k Key value of record to remove.
-     * @param e Element value of record to remove.
-     */
-    public void remove(K k, E e)
-    {
-        root = removehelp(root, k, e); // remove it
-        nodecount--;
-    }
-
-    /**
      * Remove a node with key value k
      * 
      * @return The tree with the node removed
      */
-    private DnaNode<K, E> removehelp(DnaNode<K, E> rt, K k)
+    private DnaNode<K> removehelp(DnaNode<K> rt, K k)
     {
         if (rt == null)
         {
@@ -134,202 +102,12 @@ public class DnaTree<K extends Comparable<? super K>, E>
             } 
             else
             { // Two children
-                DnaNode<K, E> temp = getmin(rt.right());
+                DnaNode<K> temp = getmin(rt.right());
                 rt.setElement(temp.element());
                 rt.setKey(temp.key());
                 rt.setRight(deletemin(rt.right()));
             }
         }
         return rt;
-    }
-    
-    /**
-     * Remove a node with key value k
-     * 
-     * @return The tree with the node removed
-     */
-    private DnaNode<K, E> removehelp(DnaNode<K, E> rt, K k, E e)
-    {
-        if (rt == null)
-        {
-            return null;
-        }
-        if (rt.key().compareTo(k) > 0)
-        {
-            rt.setLeft(removehelp(rt.left(), k, e));
-        } 
-        else if (rt.key().compareTo(k) < 0)
-        {
-            rt.setRight(removehelp(rt.right(), k, e));
-        }
-        else
-        { // Found it, remove it
-            // Check first node for element for same name
-            if (rt.element() != e) {
-                rt.setRight(removehelp(rt.right(), k, e));
-                return rt;
-            }
-            if (rt.left() == null)
-            {
-                return rt.right();
-            } 
-            else if (rt.right() == null)
-            {
-                return rt.left();
-            } 
-            else
-            { // Two children
-                DnaNode<K, E> temp = getmin(rt.right());
-                rt.setElement(temp.element());
-                rt.setKey(temp.key());
-                rt.setRight(deletemin(rt.right()));
-            }
-        }
-        return rt;
-    }
-
-    /**
-     * @return Record with key k, null if none.
-     * @param k The key value to find.
-     */
-    public E search(K k)
-    {
-        return searchhelp(root, k);
-    }
-
-    /**
-     * Helper function to facilitate search function
-     */
-    private E searchhelp(DnaNode<K, E> rt, K k)
-    {
-        if (rt == null)
-        {
-            return null;
-        }
-        if (rt.key().compareTo(k) > 0)
-        {
-            return searchhelp(rt.left(), k);
-        } 
-        else if (rt.key().compareTo(k) == 0)
-        {
-            return rt.element();
-        } 
-        else
-        {
-            return searchhelp(rt.right(), k);
-        }
-    }
-
-    /**
-     * @return Leftmost node in the tree.
-     */
-    public DnaNode<K, E> getFirst()
-    {
-        if (root == null)
-        {
-            return null;
-        }
-        DnaNode<K, E> n = root;
-        while (n.left() != null)
-        {
-            n = n.left();
-        }
-        return n;
-    }
-
-    /**
-     * @param n Previous node in iteration
-     * @return Current node in iteration.
-     */
-    public DnaNode<K, E> getNext(DnaNode<K, E> n)
-    {
-        if (n.right() != null)
-        {
-            n = n.right();
-            while (n.left() != null)
-            {
-                n = n.left();
-            }
-            return n;
-        } 
-        else
-        {
-            while (n.parent() != null && n == n.parent().right())
-            {
-                n = n.parent();
-            }
-            return n.parent();
-        }
-    }
-
-    /**
-     * dumps the DnaTree to standard out.
-     */
-    public void dump()
-    {
-        System.out.println("DnaTree Dump:");
-        if (root == null)
-        {
-            System.out.println("Node has depth 0, Value (null)");
-        }
-        dumpHelp(root, 0);
-        System.out.println("DnaTree size is: " + size());
-    }
-
-    /**
-     * @param rt Current node in recursion.
-     * @param depth Keeps track of tree depth in recursion
-     * @return False if starter node is null, otherwise returns true
-     */
-    private boolean dumpHelp(DnaNode<K, E> rt, int depth)
-    {
-        if (rt == null)
-        {
-            return false;
-        }
-        dumpHelp(rt.left(), depth + 1);
-        System.out.println("Node has depth " + depth + ", Value "
-                + rt.element().toString());
-        dumpHelp(rt.right(), depth + 1);
-        return true;
-    }
-
-    /** @return Number of records in dictionary. */
-    public int size()
-    {
-        return nodecount;
-    }
-
-    /**
-     * @param rt Starter node
-     * @return Minimum value from starting node
-     */
-    private DnaNode<K, E> getmin(DnaNode<K, E> rt)
-    {
-        if (rt.left() == null)
-        {
-            return rt;
-        } 
-        else
-        {
-            return getmin(rt.left());
-        }
-    }
-
-    /**
-     * @param rt Starter node
-     * @return Minimum value from starting node
-     */
-    private DnaNode<K, E> deletemin(DnaNode<K, E> rt)
-    {
-        if (rt.left() == null)
-        {
-            return rt.right();
-        } 
-        else
-        {
-            rt.setLeft(deletemin(rt.left()));
-            return rt;
-        }
     }
 }

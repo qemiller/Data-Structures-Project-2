@@ -7,22 +7,21 @@
  * @param <K> Key value of the element.
  * @param <E> Element value of the element.
  */
-public class DnaNode<K, E>
+public class DnaNode<K>
 {
     private K key;
-    private E element;
-    private DnaNode<K, E> left;
-    private DnaNode<K, E> right;
-    private DnaNode<K, E> parent;
+    private DnaNode<K> parent;
+    
+    enum nodeType {FLYWEIGHT, LEAF, INTERNAL};
+    private nodeType nodeT;
 
     /**
      * Constructor
      */
     public DnaNode()
     {
-        left = null;
-        right = null;
         parent = null;
+        nodeT = nodeType.FLYWEIGHT;
     }
     
     /**
@@ -30,13 +29,11 @@ public class DnaNode<K, E>
      * @param k Key value of the element
      * @param val Element value of the element
      */
-    public DnaNode(K k, E val)
+    public DnaNode(K k)
     {
-        left = null;
-        right = null;
         parent = null;
         key = k;
-        element = val;
+        nodeT = nodeType.FLYWEIGHT;
     }
 
     /**
@@ -60,78 +57,47 @@ public class DnaNode<K, E>
     }
 
     /**
-     * get element
-     * @return Element value
+     * return parent of left node. 
+     *@return Parent node
      */
-    public E element()
+    public DnaNode<K> parent()
     {
-        return element;
+        return parent;
     }
     
-  
-    /**
-     * set element of node
-     * @param v New element value
-     * @return New element value
-     */
-    public E setElement(E v)
-    {
-        element = v;
-        return element;
-    }
-
-    /**
-     * get left child of current node
-     * @return Left node
-     */
-    public DnaNode<K, E> left()
-    {
-        return left;
-    }
-
-    /**
-     * set left child of current node
-     * @param p Parent node
-     * @return Parent node's new left node
-     */
-    public DnaNode<K, E> setLeft(DnaNode<K, E> p)
-    {
-        if (p != null) {
-            p.parent = this;
-        }
-        left = p;
-        return left;
-    }
-
-    /**
-     * get right child of current node
-     * @return Right node
-     */
-    public DnaNode<K, E> right()
-    {
-        return right;
-    }
-
-    /**
-     * set the right child of current node
-     * @param p Parent node
-     * @return Parent node's new right node
-     */
-    public DnaNode<K, E> setRight(DnaNode<K, E> p)
-    {
-        if (p != null) {
-            p.parent = this;
-        }
-        right = p;
-        return right;
-    }
-
     /**
      * return parent of left node. 
      *@return Parent node
      */
-    public DnaNode<K, E> parent()
+    public nodeType getNode()
     {
-        return parent;
+        return nodeT;
+    }
+    
+    /**
+     * return parent of left node. 
+     *@return Parent node
+     */
+    public void setAsLeaf()
+    {
+        nodeT = nodeType.LEAF;
+    }
+    
+    /**
+     * return parent of left node. 
+     *@return Parent node
+     */
+    public void setAsInternal()
+    {
+        nodeT = nodeType.INTERNAL;
+    }
+    
+    /**
+     * return parent of left node. 
+     *@return Parent node
+     */
+    public void setAsFlyweight()
+    {
+        nodeT = nodeType.FLYWEIGHT;
     }
 }
