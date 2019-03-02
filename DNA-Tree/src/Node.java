@@ -7,8 +7,8 @@
  *
  */
 public interface Node {
-    public void insert();
-    public void remove();
+    public Node insert(String s);
+    public Node remove();
     public void print();
-    public void search();
+    public Node search();
 }

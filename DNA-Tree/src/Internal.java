@@ -9,24 +9,6 @@
 public class Internal implements Node {
 
     /* (non-Javadoc)
-     * @see Node#insert()
-     */
-    @Override
-    public void insert() {
-        // TODO Auto-generated method stub
-
-    }
-
-    /* (non-Javadoc)
-     * @see Node#remove()
-     */
-    @Override
-    public void remove() {
-        // TODO Auto-generated method stub
-
-    }
-
-    /* (non-Javadoc)
      * @see Node#print()
      */
     @Override
@@ -35,13 +17,22 @@ public class Internal implements Node {
 
     }
 
-    /* (non-Javadoc)
-     * @see Node#search()
-     */
     @Override
-    public void search() {
+    public Node insert(String s) {
         // TODO Auto-generated method stub
+        return null;
+    }
 
+    @Override
+    public Node remove() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Node search() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

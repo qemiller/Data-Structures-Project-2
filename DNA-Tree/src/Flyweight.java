@@ -7,16 +7,36 @@
  *
  */
 public class Flyweight implements Node {
-    public void insert() {
+    
+    private static Flyweight fly;
+    
+    Flyweight() {
         
+    }
+    
+    static {
+        try{
+            fly = new Flyweight();
+        }
+        catch(Exception e){
+            throw new RuntimeException("Could not create flyweight!");
+        }
+    }
+    
+    public static Flyweight getInstance() {
+        return fly;
     };
-    public void remove() {
-        
+    
+    public Node insert(String s) {
+        return new Leaf(s);
+    };
+    public Node remove() {
+        return null;
     };
     public void print() {
         
     };
-    public void search() {
-        
+    public Node search() {
+        return null;
     };
 }
