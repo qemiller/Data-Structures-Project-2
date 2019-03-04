@@ -8,7 +8,7 @@
  */
 public interface Node {
     public Node insert(String s);
-    public Node remove();
+    public Node remove(String s);
     public void print();
-    public Node search();
+    public Node search(String s, boolean exact);
 }

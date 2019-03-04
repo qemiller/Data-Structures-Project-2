@@ -30,13 +30,13 @@ public class Flyweight implements Node {
     public Node insert(String s) {
         return new Leaf(s);
     };
-    public Node remove() {
+    public Node remove(String s) {
         return null;
     };
     public void print() {
         
     };
-    public Node search() {
+    public Node search(String s, boolean exact) {
         return null;
     };
 }

@@ -7,10 +7,10 @@
  *
  */
 public class Leaf implements Node {
-    private String leafString;
+    private String leafData;
     
     Leaf(String s) {
-        
+        this.leafData = s;
     }
     
     /* (non-Javadoc)
@@ -18,25 +18,28 @@ public class Leaf implements Node {
      */
     @Override
     public void print() {
-        // TODO Auto-generated method stub
-
+        System.out.print(this.leafData);
     }
 
     @Override
     public Node insert(String s) {
-        // TODO Auto-generated method stub
+        //Must create an internal node for leaf node
+        return new Internal(s, this.leafData);
+    }
+
+    @Override
+    public Node remove(String s) {
+        if(this.leafData.equals(s)) {
+            return this;
+        }
         return null;
     }
 
     @Override
-    public Node remove() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Node search() {
-        // TODO Auto-generated method stub
+    public Node search(String s, boolean exact) {
+        if(this.leafData.equals(s)) {
+            return this;
+        }
         return null;
     }
 
