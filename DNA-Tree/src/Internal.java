@@ -9,6 +9,8 @@
 public class Internal implements Node {
     private String internalData;
     
+    static int curPos;
+    
     private Node A;
     private Node C;
     private Node G;
@@ -57,8 +59,46 @@ public class Internal implements Node {
 
     @Override
     public Node insert(String s) {
-        // TODO Auto-generated method stub
+        return insertHelper(s);
+    }
+    
+    public Node insertHelper(String s) {
+        if(curPos >= s.length()) {
+            return null;
+        }
+        else {
+            
+        }
+        return insertHelper(s);
+    }
+    
+    public Node getChild(char letter) {
+        switch (letter) {
+            case 'A':
+                return A;
+            case 'C':
+                return C;
+            case 'G':
+                return G;
+            case 'T':
+                return T;
+        }
         return null;
+    }
+    
+    public void setChild(char letter, Node newChild) {
+        switch (letter) {
+            case 'A':
+                A = newChild;
+            case 'C':
+                C = newChild;
+            case 'G':
+                G = newChild;
+            case 'T':
+                T = newChild;
+            case '$':
+                $ = newChild;
+        }
     }
 
     @Override
