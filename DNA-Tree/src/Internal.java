@@ -46,8 +46,6 @@ public class Internal implements Node {
      */
     @Override
     public void print() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -126,13 +124,11 @@ public class Internal implements Node {
 
     @Override
     public Node remove(String s) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Node search(String s, boolean exact) {
-        // TODO Auto-generated method stub
         int searchPos = 0;
         return searchHelper(s, searchPos, exact);
     }

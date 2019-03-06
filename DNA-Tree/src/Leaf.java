@@ -4,16 +4,23 @@
 
 /**
  * @author Josh
+ * @author Quinton
+ * 
+ * @version 3/5/2019
  *
  */
 public class Leaf implements Node {
     private String leafData;
-    
+
+
     Leaf(String s) {
         this.leafData = s;
     }
-    
-    /* (non-Javadoc)
+
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see Node#print()
      */
     @Override
@@ -21,23 +28,34 @@ public class Leaf implements Node {
         System.out.print(this.leafData);
     }
 
+
     @Override
     public Node insert(String s) {
-        //Must create an internal node for leaf node
-        return new Internal(s, this.leafData);
+        if (!this.leafData.equals(s)) {
+            return new Internal(s, this.leafData);
+        }
+        else {
+            System.out.println("Cannot insert a leaf node with the"
+                + " exact same data of another node");
+            return this;
+        }
     }
+
 
     @Override
     public Node remove(String s) {
-        if(this.leafData.equals(s)) {
+        if (this.leafData.equals(s)) {
+            return Flyweight.getInstance();
+        }
+        else {
             return this;
         }
-        return null;
     }
+
 
     @Override
     public Node search(String s, boolean exact) {
-        if(this.leafData.equals(s)) {
+        if (this.leafData.equals(s)) {
             return this;
         }
         return null;
