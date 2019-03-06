@@ -42,5 +42,13 @@ public class Leaf implements Node {
         }
         return null;
     }
+    
+    public String getString() {
+        return leafData;
+    }
+    
+    public void setString(String s) {
+        leafData = s;
+    }
 
 }
