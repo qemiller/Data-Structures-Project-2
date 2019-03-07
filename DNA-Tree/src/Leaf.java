@@ -30,7 +30,7 @@ public class Leaf implements Node {
 
 
     @Override
-    public Node insert(String s) {
+    public Node insert(String s, int strIndex) {
         if (!this.leafData.equals(s)) {
             return new Internal(s, this.leafData);
         }

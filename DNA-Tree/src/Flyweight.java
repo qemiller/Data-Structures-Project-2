@@ -29,7 +29,7 @@ public class Flyweight implements Node {
     };
 
 
-    public Node insert(String s) {
+    public Node insert(String s, int strIndex) {
         return new Leaf(s);
     };
 

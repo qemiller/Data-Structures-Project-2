@@ -14,7 +14,7 @@ public class Trie {
     }
     
     public Node insert(String s){
-        return root = root.insert(s);
+        return root = root.insert(s, 0);
     }
     
     public Node remove(String s){

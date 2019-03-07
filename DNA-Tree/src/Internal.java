@@ -24,40 +24,28 @@ public class Internal implements Node {
         Node $ = Flyweight.getInstance();
 
         if (s.length() > curData.length()) {
-            insert(s);
+            insert(s, 0);
             if (s.startsWith(curData)) {
-                $ = $.insert(curData);
+                $$$insert$$$(s);
             }
             else {
-                insert(curData);
+                insert(curData, 0);
             }
         }
         else {
-            insert(curData);
+            insert(curData, 0);
             if (curData.startsWith(s)) {
-                $ = $.insert(s);
+                $$$insert$$$(s);
             }
             else {
-                insert(s);
+                insert(s, 0);
             }
         }
     }
 
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see Node#print()
-     */
     @Override
-    public void print() {
-    }
-
-
-    @Override
-    public Node insert(String s) {
+    public Node insert(String s, int strIndex) {
         // Index to keep track of location in string
-        int strIndex = 0;
         return insertHelper(s, strIndex);
     }
 
@@ -66,45 +54,46 @@ public class Internal implements Node {
         if (strIndex < s.length()) {
             Node currChild = getChild(s.charAt(strIndex));
 
-            if ($ instanceof Leaf) {
-
+            if($ instanceof Leaf && s.length() < ((Leaf) $).getString().length() &&
+                    ((Leaf) $).getString().startsWith(s)) {
+                String temp = ((Leaf) $).getString();
+                ((Leaf) $).setString(s);
+                insert(temp, 0);
             }
             // We have found the bottom of the tree, now we must reorganize
-            if (currChild instanceof Leaf) {
-                // This swaps the two strings and performs a recursive call on
-                // the displaced string
-                String oldString = ((Leaf)$).getString();
-                ((Leaf)$).setString(s);
-                insertHelper(oldString, strIndex);
-
-                if (((Leaf)currChild).getString().length() < strIndex) {
-
-                }
+            else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
+                $$$insert$$$(s);
             }
             // currChild is not at the bottom of the trie, so we insert new
             // node, either
             // as a new leaf node, or as an internal node
             else {
-                setChild(s.charAt(strIndex), currChild.insert(s));
+                setChild(s.charAt(strIndex), currChild.insert(s, strIndex + 1));
             }
         }
         // If we get down here, we are out of characters in the string
         else {
-            if ($ instanceof Flyweight) {
-                $ = $.insert(s);
-            }
-            else {
-                // Throw an error, either $ is an internal node(should never
-                // happen)
-                // Or it is a leaf node, in which case this is a duplicate
-                // sequence
-            }
+            $$$insert$$$(s);
         }
         return this;
     }
 
+    private void $$$insert$$$(String s){
+        if ($ instanceof Flyweight) {
+            $ = $.insert(s, 0);
+        } 
+        else if (((Leaf) $).getString().contentEquals(s)) {
+            //Throw error, we have duplicate node
+        } 
+        else {
+            //Swap and continue
+            String temp = ((Leaf) $).getString();
+            ((Leaf) $).setString(s);
+            insert(temp, 0);
+        }
+    }
 
-    public Node getChild(char letter) {
+    private Node getChild(char letter) {
         switch (letter) {
             case 'A':
                 return A;
@@ -216,5 +205,15 @@ public class Internal implements Node {
         array[4] = $;
         return array;
     }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see Node#print()
+     */
+    @Override
+    public void print() {
+    }
+
 
 }
