@@ -4,6 +4,7 @@
 
 /**
  * @author Josh
+ * @author Quinton
  *
  */
 public class Internal implements Node {
@@ -142,16 +143,26 @@ public class Internal implements Node {
 
 
     private Node removeHelp(String s, int strIndex) {
-        if (strIndex != s.length() - 1) {
-            Node curChild = getChild(s.charAt(strIndex));
-            setChild(s.charAt(strIndex),curChild.remove(s));
+        Node internalNode = getChild('$');
+        String internalData = internalNode.toString();
+        if (s.charAt(strIndex) == internalData.charAt(strIndex))
+        {
+            if(strIndex == s.length() - 1)
+            {
+                Node removeNode = getChild(s.charAt(strIndex));
+                 removeNode = removeNode.remove(s);
+            }
+            else
+            {
+                removeHelp(s,strIndex++);
+            }
         }
         else
         {
-            $ = $.remove(s);
+           return this;
         }
         
-        Node collapse = null;
+        Node collapse = Flyweight.getInstance();
         for(Node Child:getChildNodes())
         {
             if(Child instanceof Internal)
@@ -160,7 +171,7 @@ public class Internal implements Node {
             }
             else if(Child instanceof Leaf)
             {
-                if(collapse == null)
+                if(collapse == Flyweight.getInstance())
                 {
                     collapse = Child;
                 }
