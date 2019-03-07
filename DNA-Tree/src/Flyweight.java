@@ -8,10 +8,11 @@
  */
 public class Flyweight implements Node {
 
-    private static Flyweight fly;
+    private static Flyweight fly = null;
 
 
     Flyweight() {
+        
     }
 
     static {

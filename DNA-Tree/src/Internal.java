@@ -16,29 +16,29 @@ public class Internal implements Node {
     private Node $;
 
 
-    Internal(String s, String curData) {
-        Node A = Flyweight.getInstance();
-        Node C = Flyweight.getInstance();
-        Node G = Flyweight.getInstance();
-        Node T = Flyweight.getInstance();
-        Node $ = Flyweight.getInstance();
+    Internal(String s, int strIndex, String curData) {
+        A = Flyweight.getInstance();
+        C = Flyweight.getInstance();
+        G = Flyweight.getInstance();
+        T = Flyweight.getInstance();
+        $ = Flyweight.getInstance();
 
         if (s.length() > curData.length()) {
-            insert(s, 0);
+            insert(s, strIndex);
             if (s.startsWith(curData)) {
-                $$$insert$$$(s);
+                $$$insert$$$(s, strIndex);
             }
             else {
-                insert(curData, 0);
+                insert(curData, strIndex);
             }
         }
         else {
-            insert(curData, 0);
+            insert(curData, strIndex);
             if (curData.startsWith(s)) {
-                $$$insert$$$(s);
+                $$$insert$$$(s, strIndex);
             }
             else {
-                insert(s, 0);
+                insert(s, strIndex);
             }
         }
     }
@@ -62,7 +62,7 @@ public class Internal implements Node {
             }
             // We have found the bottom of the tree, now we must reorganize
             else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
-                $$$insert$$$(s);
+                $$$insert$$$(s, strIndex);
             }
             // currChild is not at the bottom of the trie, so we insert new
             // node, either
@@ -73,14 +73,14 @@ public class Internal implements Node {
         }
         // If we get down here, we are out of characters in the string
         else {
-            $$$insert$$$(s);
+            $$$insert$$$(s, strIndex);
         }
         return this;
     }
 
-    private void $$$insert$$$(String s){
+    private void $$$insert$$$(String s, int strIndex){
         if ($ instanceof Flyweight) {
-            $ = $.insert(s, 0);
+            $ = $.insert(s, strIndex);
         } 
         else if (((Leaf) $).getString().contentEquals(s)) {
             //Throw error, we have duplicate node
@@ -89,7 +89,7 @@ public class Internal implements Node {
             //Swap and continue
             String temp = ((Leaf) $).getString();
             ((Leaf) $).setString(s);
-            insert(temp, 0);
+            insert(temp, strIndex);
         }
     }
 
@@ -112,14 +112,19 @@ public class Internal implements Node {
         switch (letter) {
             case 'A':
                 A = newChild;
+                break;
             case 'C':
                 C = newChild;
+                break;
             case 'G':
                 G = newChild;
+                break;
             case 'T':
                 T = newChild;
+                break;
             case '$':
                 $ = newChild;
+                break;
         }
     }
 
