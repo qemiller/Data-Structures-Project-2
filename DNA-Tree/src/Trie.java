@@ -4,6 +4,7 @@
 
 /**
  * @author Josh
+ * @author Quinton
  *
  */
 public class Trie {
@@ -18,7 +19,7 @@ public class Trie {
     }
     
     public Node remove(String s){
-        return root = root.remove(s);
+        return root = root.remove(s, 0);
     }
     
     public void print(){

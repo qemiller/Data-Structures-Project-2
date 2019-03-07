@@ -2,7 +2,7 @@
 import java.io.File;
 import java.util.Scanner;
 
-public class parse {
+public class Parse {
     public void parseFile(String fileName) {
         try {
             Scanner sc = new Scanner(new File(fileName));

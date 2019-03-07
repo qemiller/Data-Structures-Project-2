@@ -43,7 +43,7 @@ public class Leaf implements Node {
 
 
     @Override
-    public Node remove(String s) {
+    public Node remove(String s, int strIndex) {
         if (this.leafData.equals(s)) {
             return Flyweight.getInstance();
         }

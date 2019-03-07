@@ -35,7 +35,7 @@ public class Flyweight implements Node {
     };
 
 
-    public Node remove(String s) {
+    public Node remove(String s, int strIndex) {
         System.out.println("Can not remove a flyweight node!");
         return this;
 

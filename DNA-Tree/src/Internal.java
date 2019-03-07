@@ -43,6 +43,7 @@ public class Internal implements Node {
         }
     }
 
+
     @Override
     public Node insert(String s, int strIndex) {
         // Index to keep track of location in string
@@ -54,10 +55,10 @@ public class Internal implements Node {
         if (strIndex < s.length()) {
             Node currChild = getChild(s.charAt(strIndex));
 
-            if($ instanceof Leaf && s.length() < ((Leaf) $).getString().length() &&
-                    ((Leaf) $).getString().startsWith(s)) {
-                String temp = ((Leaf) $).getString();
-                ((Leaf) $).setString(s);
+            if ($ instanceof Leaf && s.length() < ((Leaf)$).getString().length()
+                && ((Leaf)$).getString().startsWith(s)) {
+                String temp = ((Leaf)$).getString();
+                ((Leaf)$).setString(s);
                 insert(temp, 0);
             }
             // We have found the bottom of the tree, now we must reorganize
@@ -78,20 +79,22 @@ public class Internal implements Node {
         return this;
     }
 
-    private void $$$insert$$$(String s, int strIndex){
+
+    private void $$$insert$$$(String s, int strIndex) {
         if ($ instanceof Flyweight) {
             $ = $.insert(s, strIndex);
-        } 
-        else if (((Leaf) $).getString().contentEquals(s)) {
-            //Throw error, we have duplicate node
-        } 
+        }
+        else if (((Leaf)$).getString().contentEquals(s)) {
+            // Throw error, we have duplicate node
+        }
         else {
-            //Swap and continue
-            String temp = ((Leaf) $).getString();
-            ((Leaf) $).setString(s);
+            // Swap and continue
+            String temp = ((Leaf)$).getString();
+            ((Leaf)$).setString(s);
             insert(temp, strIndex);
         }
     }
+
 
     private Node getChild(char letter) {
         switch (letter) {
@@ -130,47 +133,45 @@ public class Internal implements Node {
 
 
     @Override
-    public Node remove(String s) {
-        int strIndex = 0;
+    public Node remove(String s, int strIndex) {
         return removeHelp(s, strIndex);
     }
 
 
-    private Node removeHelp(String s, int strIndex) {
-        Node internalNode = getChild('$');
-        String internalData = internalNode.toString();
-        if (s.charAt(strIndex) == internalData.charAt(strIndex))
-        {
-            if(strIndex == s.length() - 1)
-            {
-                Node removeNode = getChild(s.charAt(strIndex));
-                 removeNode = removeNode.remove(s);
+    private Node removeHelp(String sequence, int strIndex) {
+        if (strIndex != sequence.length() - 2) {
+            Node Child = getChild(sequence.charAt(strIndex));
+            setChild(sequence.charAt(strIndex), Child.remove(sequence, strIndex
+                + 1));
+        }
+        else {
+            if (sequence.charAt(strIndex + 1) == 'A') {
+                A = A.remove(sequence, 0);
             }
-            else
-            {
-                removeHelp(s,strIndex++);
+
+            else if (sequence.charAt(strIndex + 1) == 'C') {
+                C = C.remove(sequence, 0);
+            }
+
+            else if (sequence.charAt(strIndex + 1) == 'G') {
+                G = G.remove(sequence, 0);
+            }
+
+            else if (sequence.charAt(strIndex + 1) == 'T') {
+                T = T.remove(sequence, 0);
             }
         }
-        else
-        {
-           return this;
-        }
-        
+
         Node collapse = Flyweight.getInstance();
-        for(Node Child:getChildNodes())
-        {
-            if(Child instanceof Internal)
-            {
+        for (Node Child : getChildNodes()) {
+            if (Child instanceof Internal) {
                 return this;
             }
-            else if(Child instanceof Leaf)
-            {
-                if(collapse == Flyweight.getInstance())
-                {
+            else if (Child instanceof Leaf) {
+                if (collapse == Flyweight.getInstance()) {
                     collapse = Child;
                 }
-                else
-                {
+                else {
                     return this;
                 }
             }
@@ -199,9 +200,9 @@ public class Internal implements Node {
         }
         return this;
     }
-    
-    private Node[] getChildNodes()
-    {
+
+
+    private Node[] getChildNodes() {
         Node[] array = new Node[5];
         array[0] = A;
         array[1] = C;
@@ -210,7 +211,8 @@ public class Internal implements Node {
         array[4] = $;
         return array;
     }
-    
+
+
     /*
      * (non-Javadoc)
      * 
@@ -219,6 +221,5 @@ public class Internal implements Node {
     @Override
     public void print() {
     }
-
 
 }
