@@ -45,9 +45,11 @@ public class Leaf implements Node {
     @Override
     public Node remove(String s, int strIndex) {
         if (this.leafData.equals(s)) {
+            System.out.println("sequnce " + s + " removed");
             return Flyweight.getInstance();
         }
         else {
+            System.out.println("sequence" + s + "doesn't exsist");
             return this;
         }
     }

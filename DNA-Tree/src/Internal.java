@@ -139,29 +139,29 @@ public class Internal implements Node {
 
 
     private Node removeHelp(String sequence, int strIndex) {
-        if (strIndex != sequence.length() - 2) {
-            Node Child = getChild(sequence.charAt(strIndex));
-            setChild(sequence.charAt(strIndex), Child.remove(sequence, strIndex
-                + 1));
-        }
-        else {
-            if (sequence.charAt(strIndex + 1) == 'A') {
+        Node child = getChild(sequence.charAt(strIndex));
+        if (child instanceof Leaf){
+            if (sequence.charAt(strIndex) == 'A') {
                 A = A.remove(sequence, 0);
             }
 
-            else if (sequence.charAt(strIndex + 1) == 'C') {
+            else if (sequence.charAt(strIndex) == 'C') {
                 C = C.remove(sequence, 0);
             }
 
-            else if (sequence.charAt(strIndex + 1) == 'G') {
+            else if (sequence.charAt(strIndex) == 'G') {
                 G = G.remove(sequence, 0);
             }
 
-            else if (sequence.charAt(strIndex + 1) == 'T') {
+            else if (sequence.charAt(strIndex) == 'T') {
                 T = T.remove(sequence, 0);
             }
         }
-
+        else {
+            setChild(sequence.charAt(strIndex), child.remove(sequence, strIndex
+                + 1));
+        }
+        
         Node collapse = Flyweight.getInstance();
         for (Node Child : getChildNodes()) {
             if (Child instanceof Internal) {
