@@ -157,6 +157,11 @@ public class Internal implements Node {
                 T = T.remove(sequence, 0);
             }
         }
+        else if(child == Flyweight.getInstance())
+        {
+            System.out.println("sequence" + sequence + "doesn't exsist");
+            return this;
+        }
         else {
             setChild(sequence.charAt(strIndex), child.remove(sequence, strIndex
                 + 1));

@@ -30,20 +30,21 @@ public class Flyweight implements Node {
     };
 
 
-    public Node insert(String s, int strIndex) {
+    public Node insert(String s, int depth) {
+        System.out.println("sequence " + s + " inserted at level " + Integer.toString(depth));
         return new Leaf(s);
     };
 
 
     public Node remove(String s, int strIndex) {
-        System.out.println("Can not remove a flyweight node!");
+        System.out.println("sequence " + s + "does not exsist");
         return this;
 
     };
 
 
     public void print() {
-
+        System.out.println("E");
     };
 
 
