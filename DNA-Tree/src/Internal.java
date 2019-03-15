@@ -186,24 +186,29 @@ public class Internal implements Node {
 
 
     @Override
-    public Node search(String s, boolean exact) {
-        int searchPos = 0;
-        return searchHelper(s, searchPos, exact);
+    public void search(String s, int strPos, boolean exact, int nodesVisited) {
+        searchHelper(s, strPos, exact, nodesVisited);
     }
 
 
-    public Node searchHelper(String s, int strPos, boolean exact) {
+    public void searchHelper(String s, int strPos, boolean exact, int nodesVisited) {
+        nodesVisited++;
         if (strPos < (s.length() - 1)) {
-            // Have not found the bottom of the string, continue
-            searchHelper(s, strPos + 1, exact);
+            char childChar = s.charAt(strPos);
+            Node child = getChild(childChar);
+            child.search(s, strPos, exact, nodesVisited);
         }
         else if (exact) {
-
+            Node child = getChild(s.charAt(strPos));
+            child.search(s, strPos, exact, nodesVisited);
         }
         else {
-
+            A.search(s, strPos, exact, nodesVisited);
+            C.search(s, strPos, exact, nodesVisited);
+            G.search(s, strPos, exact, nodesVisited);
+            T.search(s, strPos, exact, nodesVisited);
+            $.search(s, strPos, exact, nodesVisited);
         }
-        return this;
     }
 
 

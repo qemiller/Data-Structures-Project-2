@@ -48,7 +48,6 @@ public class Flyweight implements Node {
     };
 
 
-    public Node search(String s, boolean exact) {
-        return fly;
+    public void search(String s,int strIndex, boolean exact, int nodesVisited) {
     };
 }

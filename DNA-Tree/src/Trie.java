@@ -9,24 +9,33 @@
  */
 public class Trie {
     private Node root;
-    
-    Trie(){
+
+
+    Trie() {
         root = Flyweight.getInstance();
     }
-    
-    public Node insert(String s){
+
+
+    public Node insert(String s) {
         return root = root.insert(s, 0);
     }
-    
-    public Node remove(String s){
+
+
+    public Node remove(String s) {
         return root = root.remove(s, 0);
     }
-    
-    public void print(){
+
+
+    public void print() {
         root.print();
     }
-    
-    public Node search(String s, boolean exact) {
-        return root = root.search(s, exact);
+
+
+    public void search(
+        String s,
+        int strIndex,
+        boolean exact,
+        int nodesVisited) {
+        root.search(s, strIndex, exact, nodesVisited);
     }
 }

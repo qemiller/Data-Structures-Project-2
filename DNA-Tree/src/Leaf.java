@@ -56,11 +56,9 @@ public class Leaf implements Node {
 
 
     @Override
-    public Node search(String s, boolean exact) {
-        if (this.leafData.equals(s)) {
-            return this;
-        }
-        return null;
+    public void search(String s, int strIndex, boolean exact, int nodesVisited) {
+        nodesVisited++;
+        
     }
     
     public String getString() {
