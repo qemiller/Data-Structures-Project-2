@@ -31,7 +31,7 @@ public class Flyweight implements Node {
 
 
     public Node insert(String s, int depth) {
-        System.out.println("sequence " + s + " inserted at level " + Integer.toString(depth));
+        Trie.setInsertDepth(depth);
         return new Leaf(s);
     };
 
@@ -43,11 +43,17 @@ public class Flyweight implements Node {
     };
 
 
-    public void print() {
-        System.out.println("E");
+    public void print(int tabIndex, String type) {
+        String printTabs = "";
+        for(int i = 0; i < tabIndex; i++)
+        {
+            printTabs = printTabs.concat("  ");
+        }
+        System.out.println(printTabs + "E");
     };
 
 
     public void search(String s,int strIndex, boolean exact, int nodesVisited) {
+        Trie.nodeVisited();
     };
 }

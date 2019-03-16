@@ -16,6 +16,15 @@ public class Internal implements Node {
     private Node $;
 
 
+    Internal() {
+        A = Flyweight.getInstance();
+        C = Flyweight.getInstance();
+        G = Flyweight.getInstance();
+        T = Flyweight.getInstance();
+        $ = Flyweight.getInstance();
+    }
+
+
     Internal(String s, int strIndex, String curData) {
         A = Flyweight.getInstance();
         C = Flyweight.getInstance();
@@ -63,7 +72,12 @@ public class Internal implements Node {
             }
             // We have found the bottom of the tree, now we must reorganize
             else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
-                $$$insert$$$(s, strIndex);
+                Internal newChild = new Internal();
+                newChild.setChild(((Leaf)currChild).getString().charAt(
+                    strIndex), currChild);
+                newChild.setChild('$', ((Internal)newChild).$.insert(s, strIndex
+                    + 2));
+                setChild(s.charAt(strIndex), newChild);
             }
             // currChild is not at the bottom of the trie, so we insert new
             // node, either
@@ -73,9 +87,6 @@ public class Internal implements Node {
             }
         }
         // If we get down here, we are out of characters in the string
-        else {
-            $$$insert$$$(s, strIndex);
-        }
         return this;
     }
 
@@ -140,7 +151,7 @@ public class Internal implements Node {
 
     private Node removeHelp(String sequence, int strIndex) {
         Node child = getChild(sequence.charAt(strIndex));
-        if (child instanceof Leaf){
+        if (child instanceof Leaf) {
             if (sequence.charAt(strIndex) == 'A') {
                 A = A.remove(sequence, 0);
             }
@@ -157,8 +168,7 @@ public class Internal implements Node {
                 T = T.remove(sequence, 0);
             }
         }
-        else if(child == Flyweight.getInstance())
-        {
+        else if (child == Flyweight.getInstance()) {
             System.out.println("sequence" + sequence + "doesn't exsist");
             return this;
         }
@@ -166,7 +176,7 @@ public class Internal implements Node {
             setChild(sequence.charAt(strIndex), child.remove(sequence, strIndex
                 + 1));
         }
-        
+
         Node collapse = Flyweight.getInstance();
         for (Node Child : getChildNodes()) {
             if (Child instanceof Internal) {
@@ -191,16 +201,20 @@ public class Internal implements Node {
     }
 
 
-    public void searchHelper(String s, int strPos, boolean exact, int nodesVisited) {
-        nodesVisited++;
-        if (strPos < (s.length() - 1)) {
+    public void searchHelper(
+        String s,
+        int strPos,
+        boolean exact,
+        int nodesVisited) {
+        Trie.nodeVisited();
+        if (strPos < s.length()) {
             char childChar = s.charAt(strPos);
             Node child = getChild(childChar);
-            child.search(s, strPos, exact, nodesVisited);
+            child.search(s, strPos + 1, exact, nodesVisited);
         }
         else if (exact) {
-            Node child = getChild(s.charAt(strPos));
-            child.search(s, strPos, exact, nodesVisited);
+            Node Child = getChild(s.charAt(strPos));
+            Child.search(s, strPos++, exact, nodesVisited);
         }
         else {
             A.search(s, strPos, exact, nodesVisited);
@@ -229,7 +243,18 @@ public class Internal implements Node {
      * @see Node#print()
      */
     @Override
-    public void print() {
-    }
+    public void print(int tabIndex, String type) {
+        String printTabs = "";
+        for (int i = 0; i < tabIndex; i++) {
+            printTabs = printTabs.concat("  ");
+        }
 
+        System.out.println(printTabs + "I");
+        A.print(tabIndex + 1, type);
+        C.print(tabIndex + 1, type);
+        G.print(tabIndex + 1, type);
+        T.print(tabIndex + 1, type);
+        $.print(tabIndex + 1, type);
+
+    }
 }
