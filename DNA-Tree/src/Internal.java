@@ -6,16 +6,39 @@
  * @author Josh
  * @author Quinton
  *
+ *
  */
 public class Internal implements Node {
 
+    /**
+     * A Node
+     */
     private Node A;
+
+    /**
+     * C Node
+     */
     private Node C;
+
+    /**
+     * G Node
+     */
     private Node G;
+
+    /**
+     * T Node
+     */
     private Node T;
+
+    /**
+     * $ Node
+     */
     private Node $;
 
 
+    /**
+     * default constructor for internal.
+     */
     Internal() {
         A = Flyweight.getInstance();
         C = Flyweight.getInstance();
@@ -25,6 +48,18 @@ public class Internal implements Node {
     }
 
 
+    /**
+     * 
+     * @param s
+     *            String of the sequence the tree is dealing with
+     * @param strIndex
+     *            Index of the String the node is dealing with
+     * @param curData
+     *            The current string in the tree
+     * 
+     *            This creates a new internal node from the current sequence in
+     *            the tree and the new sequence
+     */
     Internal(String s, int strIndex, String curData) {
         A = Flyweight.getInstance();
         C = Flyweight.getInstance();
@@ -53,12 +88,29 @@ public class Internal implements Node {
     }
 
 
+    /**
+     * @param s
+     *            sequence to be inserted into the tree
+     * @param strIndex
+     *            index of the string that the internal node is looking at.
+     * 
+     *            inserts a sequence into an internal node
+     */
     @Override
     public Node insert(String s, int strIndex) {
         // Index to keep track of location in string
         return insertHelper(s, strIndex);
     }
 
+
+    /**
+     * @param s
+     *            sequence to be inserted into the tree
+     * @param strIndex
+     *            index of the string that the internal node is looking at.
+     * 
+     *            inserts a sequence into an internal node
+     */
 
     public Node insertHelper(String s, int strIndex) {
         if (strIndex < s.length()) {
@@ -91,6 +143,15 @@ public class Internal implements Node {
     }
 
 
+    /**
+     * @param s
+     *            sequence to be inserted into the tree
+     * @param strIndex
+     *            index of the string that the internal node is looking at.
+     * 
+     *            inserts a sequence into the dollar node of the internal node
+     *            or shuffles nodes in the dollar node.
+     */
     private void $$$insert$$$(String s, int strIndex) {
         if ($ instanceof Flyweight) {
             $ = $.insert(s, strIndex);
@@ -107,6 +168,14 @@ public class Internal implements Node {
     }
 
 
+    /**
+     * 
+     * @param letter
+     *            letter of the node you want to get
+     * @return the node corresponding to the char inputed
+     * 
+     *         gets the child node based on the char inputed.
+     */
     private Node getChild(char letter) {
         switch (letter) {
             case 'A':
@@ -122,6 +191,16 @@ public class Internal implements Node {
     }
 
 
+    /**
+     * 
+     * @param letter
+     *            Node to set the newChild to
+     * @param newChild
+     *            Node to set the letter node to
+     * 
+     *            Gets a new node as input and sets the node corresponding to
+     *            the input char to the inputed node.
+     */
     public void setChild(char letter, Node newChild) {
         switch (letter) {
             case 'A':
@@ -143,12 +222,31 @@ public class Internal implements Node {
     }
 
 
+    /**
+     * @param s
+     *            Sequence to be removed from the tree.
+     * @param strIndex
+     *            Index of the string we are looking at.
+     * 
+     *            removes the sequence from the tree.
+     */
     @Override
     public Node remove(String s, int strIndex) {
         return removeHelp(s, strIndex);
     }
 
 
+    /**
+     * 
+     * @param sequence
+     *            Sequence being removed from the internal node
+     * @param strIndex
+     *            Index of the sequence we are looking at.
+     * @return The node left after the sequence is removed
+     * 
+     *         recursively removes the sequence from the internal node of the
+     *         tree.
+     */
     private Node removeHelp(String sequence, int strIndex) {
         Node child = getChild(sequence.charAt(strIndex));
         if (child instanceof Leaf) {
@@ -196,36 +294,49 @@ public class Internal implements Node {
 
 
     @Override
-    public void search(String s, int strPos, boolean exact, int nodesVisited) {
-        searchHelper(s, strPos, exact, nodesVisited);
+    public void search(String s, int strPos, boolean exact) {
+        searchHelper(s, strPos, exact);
     }
 
 
-    public void searchHelper(
-        String s,
-        int strPos,
-        boolean exact,
-        int nodesVisited) {
+    /**
+     * 
+     * @param s
+     *            string we are looking for in the tree
+     * @param strPos
+     *            index of the char in the sequence we are looking at.
+     * @param exact
+     *            true if looking for an exact match in the tree, false if we
+     *            aren't
+     */
+    public void searchHelper(String s, int strPos, boolean exact) {
         Trie.nodeVisited();
         if (strPos < s.length()) {
             char childChar = s.charAt(strPos);
             Node child = getChild(childChar);
-            child.search(s, strPos + 1, exact, nodesVisited);
+            child.search(s, strPos + 1, exact);
         }
         else if (exact) {
             Node Child = getChild(s.charAt(strPos));
-            Child.search(s, strPos++, exact, nodesVisited);
+            Child.search(s, strPos++, exact);
         }
         else {
-            A.search(s, strPos, exact, nodesVisited);
-            C.search(s, strPos, exact, nodesVisited);
-            G.search(s, strPos, exact, nodesVisited);
-            T.search(s, strPos, exact, nodesVisited);
-            $.search(s, strPos, exact, nodesVisited);
+            A.search(s, strPos, exact);
+            C.search(s, strPos, exact);
+            G.search(s, strPos, exact);
+            T.search(s, strPos, exact);
+            $.search(s, strPos, exact);
         }
     }
 
 
+    /**
+     * 
+     * @return an array of the child nodes.
+     * 
+     *         Gets the child nodes of the internal nodes and returns them in an
+     *         array
+     */
     private Node[] getChildNodes() {
         Node[] array = new Node[5];
         array[0] = A;
