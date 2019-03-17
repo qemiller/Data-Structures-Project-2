@@ -148,11 +148,11 @@ public class Leaf implements Node {
      */
     private Node removeHelper(String s, int strIndex) {
         if (this.leafData.equals(s)) {
-            System.out.println("sequnce " + s + " removed");
+            System.out.println("sequence " + s + " removed");
             return Flyweight.getInstance();
         }
         else {
-            System.out.println("sequence" + s + "doesn't exsist");
+            System.out.println("sequence" + s + "doesn't exist");
             return this;
         }
     }

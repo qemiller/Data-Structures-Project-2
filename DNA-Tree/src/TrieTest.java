@@ -32,6 +32,7 @@ public class TrieTest extends TestCase {
     
     public void testInserts(){
         Trie DNA = new Trie();
+        //Test against bad sequences
         assertTrue(DNA.insert("BBBB") instanceof Flyweight);
         assertTrue(DNA.insert("ABBB") instanceof Flyweight);
         //Attempt to remove empty
@@ -50,9 +51,5 @@ public class TrieTest extends TestCase {
         DNA.insert("AAAA");
         DNA.insert("AAGT");
         assertTrue(DNA.remove("ACGT") instanceof Internal);
-    }
-    
-    public void testSearches() {
-        
     }
 }

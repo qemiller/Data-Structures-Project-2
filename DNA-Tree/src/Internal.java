@@ -269,7 +269,7 @@ public class Internal implements Node {
             }
         }
         else if (child == Flyweight.getInstance()) {
-            System.out.println("sequence" + sequence + "doesn't exsist");
+            System.out.println("sequence" + sequence + "doesn't exist");
             return this;
         }
         else {
