@@ -49,11 +49,11 @@ public class Trie {
      *         This inserts a node into the tree.
      */
     public Node insert(String s) {
-        if(s.matches("[ACGT]+")) {
+        if (s.matches("[ACGT]+")) {
             root = root.insert(s, 0);
             if (getInsertDepth() != -1) {
-                System.out.println("sequence " + s + " inserted at level " + Integer
-                    .toString(getInsertDepth()));
+                System.out.println("sequence " + s + " inserted at level "
+                    + Integer.toString(getInsertDepth()));
             }
             setInsertDepth(-1);
             return root;
@@ -71,7 +71,8 @@ public class Trie {
      *         Removes a sequence from the tree.
      */
     public Node remove(String s) {
-        return root = root.remove(s, 0);
+        root = root.remove(s, 0);
+        return root;
     }
 
 

@@ -6,47 +6,26 @@
  * @author Josh Rehm
  * @author Quinton Miller
  * @version 3/17/2019
- * 
- * This is the implementation of internal node inherited from Node.
  *
  */
 public class Internal implements Node {
 
-    /**
-     * A Node
-     */
-    private Node A;
-
-    /**
-     * C Node
-     */
-    private Node C;
-
-    /**
-     * G Node
-     */
-    private Node G;
-
-    /**
-     * T Node
-     */
-    private Node T;
-
-    /**
-     * $ Node
-     */
-    private Node $;
+    private Node a;
+    private Node c;
+    private Node g;
+    private Node t;
+    private Node dollar;
 
 
     /**
      * default constructor for internal.
      */
     Internal() {
-        A = Flyweight.getInstance();
-        C = Flyweight.getInstance();
-        G = Flyweight.getInstance();
-        T = Flyweight.getInstance();
-        $ = Flyweight.getInstance();
+        a = Flyweight.getInstance();
+        c = Flyweight.getInstance();
+        g = Flyweight.getInstance();
+        t = Flyweight.getInstance();
+        dollar = Flyweight.getInstance();
     }
 
 
@@ -63,16 +42,16 @@ public class Internal implements Node {
      *            the tree and the new sequence
      */
     Internal(String s, int strIndex, String curData) {
-        A = Flyweight.getInstance();
-        C = Flyweight.getInstance();
-        G = Flyweight.getInstance();
-        T = Flyweight.getInstance();
-        $ = Flyweight.getInstance();
+        a = Flyweight.getInstance();
+        c = Flyweight.getInstance();
+        g = Flyweight.getInstance();
+        t = Flyweight.getInstance();
+        dollar = Flyweight.getInstance();
 
         if (s.length() > curData.length()) {
             insert(s, strIndex);
             if (s.startsWith(curData)) {
-                $$$insert$$$(s, strIndex);
+                insertDollar(s, strIndex);
             }
             else {
                 insert(curData, strIndex);
@@ -81,7 +60,7 @@ public class Internal implements Node {
         else {
             insert(curData, strIndex);
             if (curData.startsWith(s)) {
-                $$$insert$$$(s, strIndex);
+                insertDollar(s, strIndex);
             }
             else {
                 insert(s, strIndex);
@@ -110,18 +89,20 @@ public class Internal implements Node {
      *            sequence to be inserted into the tree
      * @param strIndex
      *            index of the string that the internal node is looking at.
+     * @return Node left after the insertion.
      * 
-     *            inserts a sequence into an internal node
+     *         inserts a sequence into an internal node
      */
 
     public Node insertHelper(String s, int strIndex) {
         if (strIndex < s.length()) {
             Node currChild = getChild(s.charAt(strIndex));
 
-            if ($ instanceof Leaf && s.length() < ((Leaf)$).getString().length()
-                && ((Leaf)$).getString().startsWith(s)) {
-                String temp = ((Leaf)$).getString();
-                ((Leaf)$).setString(s);
+            if (dollar instanceof Leaf && s.length() < ((Leaf)dollar)
+                .getString().length() && ((Leaf)dollar).getString().startsWith(
+                    s)) {
+                String temp = ((Leaf)dollar).getString();
+                ((Leaf)dollar).setString(s);
                 insert(temp, 0);
             }
             // We have found the bottom of the tree, now we must reorganize
@@ -129,8 +110,8 @@ public class Internal implements Node {
                 Internal newChild = new Internal();
                 newChild.setChild(((Leaf)currChild).getString().charAt(
                     strIndex), currChild);
-                newChild.setChild('$', ((Internal)newChild).$.insert(s, strIndex
-                    + 2));
+                newChild.setChild('$', ((Internal)newChild).dollar.insert(s,
+                    strIndex + 2));
                 setChild(s.charAt(strIndex), newChild);
             }
             // currChild is not at the bottom of the trie, so we insert new
@@ -154,17 +135,18 @@ public class Internal implements Node {
      *            inserts a sequence into the dollar node of the internal node
      *            or shuffles nodes in the dollar node.
      */
-    private void $$$insert$$$(String s, int strIndex) {
-        if ($ instanceof Flyweight) {
-            $ = $.insert(s, strIndex);
+    private void insertDollar(String s, int strIndex) {
+        if (dollar instanceof Flyweight) {
+            dollar = dollar.insert(s, strIndex);
         }
-        else if (((Leaf)$).getString().contentEquals(s)) {
-            // Throw error, we have duplicate node
+        else if (((Leaf)dollar).getString().contentEquals(s)) {
+            System.out.println("Cannot insert a leaf node with the"
+                + " exact same data of another node");
         }
         else {
             // Swap and continue
-            String temp = ((Leaf)$).getString();
-            ((Leaf)$).setString(s);
+            String temp = ((Leaf)dollar).getString();
+            ((Leaf)dollar).setString(s);
             insert(temp, strIndex);
         }
     }
@@ -181,13 +163,15 @@ public class Internal implements Node {
     private Node getChild(char letter) {
         switch (letter) {
             case 'A':
-                return A;
+                return a;
             case 'C':
-                return C;
+                return c;
             case 'G':
-                return G;
+                return g;
             case 'T':
-                return T;
+                return t;
+            default:
+                // No action intended otherwise.
         }
         return null;
     }
@@ -206,20 +190,22 @@ public class Internal implements Node {
     public void setChild(char letter, Node newChild) {
         switch (letter) {
             case 'A':
-                A = newChild;
+                a = newChild;
                 break;
             case 'C':
-                C = newChild;
+                c = newChild;
                 break;
             case 'G':
-                G = newChild;
+                g = newChild;
                 break;
             case 'T':
-                T = newChild;
+                t = newChild;
                 break;
             case '$':
-                $ = newChild;
+                dollar = newChild;
                 break;
+            default:
+                // No action intended otherwise
         }
     }
 
@@ -253,19 +239,19 @@ public class Internal implements Node {
         Node child = getChild(sequence.charAt(strIndex));
         if (child instanceof Leaf) {
             if (sequence.charAt(strIndex) == 'A') {
-                A = A.remove(sequence, 0);
+                a = a.remove(sequence, 0);
             }
 
             else if (sequence.charAt(strIndex) == 'C') {
-                C = C.remove(sequence, 0);
+                c = c.remove(sequence, 0);
             }
 
             else if (sequence.charAt(strIndex) == 'G') {
-                G = G.remove(sequence, 0);
+                g = g.remove(sequence, 0);
             }
 
             else if (sequence.charAt(strIndex) == 'T') {
-                T = T.remove(sequence, 0);
+                t = t.remove(sequence, 0);
             }
         }
         else if (child == Flyweight.getInstance()) {
@@ -278,13 +264,13 @@ public class Internal implements Node {
         }
 
         Node collapse = Flyweight.getInstance();
-        for (Node Child : getChildNodes()) {
-            if (Child instanceof Internal) {
+        for (Node childNode : getChildNodes()) {
+            if (childNode instanceof Internal) {
                 return this;
             }
-            else if (Child instanceof Leaf) {
+            else if (childNode instanceof Leaf) {
                 if (collapse == Flyweight.getInstance()) {
-                    collapse = Child;
+                    collapse = childNode;
                 }
                 else {
                     return this;
@@ -319,15 +305,20 @@ public class Internal implements Node {
             child.search(s, strPos + 1, exact);
         }
         else if (exact) {
-            Node Child = getChild(s.charAt(strPos));
-            Child.search(s, strPos++, exact);
+            Node childNode = getChild(s.charAt(strPos - 1));
+            if (childNode instanceof Internal) {
+                ((Internal)this).dollar.search(s, strPos - 1, exact);
+            }
+            else {
+                childNode.search(s, strPos, exact);
+            }
         }
         else {
-            A.search(s, strPos, exact);
-            C.search(s, strPos, exact);
-            G.search(s, strPos, exact);
-            T.search(s, strPos, exact);
-            $.search(s, strPos, exact);
+            a.search(s, strPos, exact);
+            c.search(s, strPos, exact);
+            g.search(s, strPos, exact);
+            t.search(s, strPos, exact);
+            dollar.search(s, strPos, exact);
         }
     }
 
@@ -336,16 +327,15 @@ public class Internal implements Node {
      * 
      * @return an array of the child nodes.
      * 
-     *         Gets the child nodes of the internal nodes and returns them in an
-     *         array
+     *         This method creates and returns an array of the child nodes.
      */
     private Node[] getChildNodes() {
         Node[] array = new Node[5];
-        array[0] = A;
-        array[1] = C;
-        array[2] = G;
-        array[3] = T;
-        array[4] = $;
+        array[0] = a;
+        array[1] = c;
+        array[2] = g;
+        array[3] = t;
+        array[4] = dollar;
         return array;
     }
 
@@ -363,11 +353,11 @@ public class Internal implements Node {
         }
 
         System.out.println(printTabs + "I");
-        A.print(tabIndex + 1, type);
-        C.print(tabIndex + 1, type);
-        G.print(tabIndex + 1, type);
-        T.print(tabIndex + 1, type);
-        $.print(tabIndex + 1, type);
+        a.print(tabIndex + 1, type);
+        c.print(tabIndex + 1, type);
+        g.print(tabIndex + 1, type);
+        t.print(tabIndex + 1, type);
+        dollar.print(tabIndex + 1, type);
 
     }
 }

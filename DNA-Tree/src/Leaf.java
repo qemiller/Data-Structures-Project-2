@@ -4,7 +4,7 @@
  * 
  * @version 3/17/2019
  *
- *This is the implementation the Leaf Node inherited from Node
+ *          This is the implementation the Leaf Node inherited from Node
  */
 public class Leaf implements Node {
     private String leafData;
@@ -186,8 +186,9 @@ public class Leaf implements Node {
             }
         }
         else {
-            if (this.leafData.charAt(strIndex - 1) == s.charAt(strIndex - 1))
+            if (this.leafData.charAt(strIndex - 1) == s.charAt(strIndex - 1)) {
                 Trie.matchFound(this.leafData);
+            }
         }
     }
 

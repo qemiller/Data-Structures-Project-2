@@ -9,6 +9,15 @@
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Quinton Miller
+ * @author Josh Rehm
+ * 
+ * @version 3/17/2019
+ * 
+ *          This parses through the file and runs the trie based on the input.
+ */
 public class Parse {
     /**
      * 
@@ -61,6 +70,8 @@ public class Parse {
                         }
                         lineScan.close();
                         break;
+                    default:
+                        System.out.println("Unrecognized input.");
                 }
 
             }

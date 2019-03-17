@@ -7,7 +7,7 @@
  * @author Quinton Miller
  * @version 3/17/2019
  * 
- * This is the implementation of the Flyweight Node inherited from Node
+ *          This is the implementation of the Flyweight Node inherited from Node
  */
 public class Flyweight implements Node {
     private static Flyweight fly = null;
@@ -17,7 +17,7 @@ public class Flyweight implements Node {
      * Creates an instance of Flyweight
      */
     Flyweight() {
-
+        // creates a new flyweight
     }
 
     static {
@@ -111,6 +111,7 @@ public class Flyweight implements Node {
         }
         System.out.println(printTabs + "E");
     }
+
 
     @Override
     public void search(String s, int strIndex, boolean exact) {

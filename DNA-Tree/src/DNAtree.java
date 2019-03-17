@@ -4,7 +4,7 @@
  * @author Josh Rehm
  * @version 3/17/2019
  * 
- *         This will run the DNA Tree functions based on the file input.
+ *          This will run the DNA Tree functions based on the file input.
  */
 
 // On my honor:
@@ -26,7 +26,7 @@
 // anything during the discussion or modifies any computer file
 // during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
- 
+
 public class DNAtree {
     /**
      * 
@@ -37,7 +37,7 @@ public class DNAtree {
      */
     public static void main(String[] args) {
         String fileName = args[0];
-        Parse DNAParse = new Parse();
-        DNAParse.parseFile(fileName);
+        Parse dnaParse = new Parse();
+        dnaParse.parseFile(fileName);
     }
 }
