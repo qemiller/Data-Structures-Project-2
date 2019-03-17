@@ -32,6 +32,10 @@ public class TrieTest extends TestCase {
     
     public void testInserts(){
         Trie DNA = new Trie();
+        //Test empty dumps
+        DNA.print("dump");
+        DNA.print("lengths");
+        DNA.print("stats");
         //Test against bad sequences
         assertTrue(DNA.insert("BBBB") instanceof Flyweight);
         assertTrue(DNA.insert("ABBB") instanceof Flyweight);

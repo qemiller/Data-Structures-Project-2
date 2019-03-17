@@ -107,7 +107,7 @@ public class Trie {
             exact = false;
         }
         root.search(s, 0, exact);
-        System.out.println("# of nodes visted: " + Integer.toString(
+        System.out.println("# of nodes visited: " + Integer.toString(
             getNodesVisited()));
         if (!searchStrings.empty()) {
             while (!searchStrings.empty()) {
