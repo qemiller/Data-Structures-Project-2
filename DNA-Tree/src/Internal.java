@@ -3,9 +3,11 @@
  */
 
 /**
- * @author Josh
- * @author Quinton
- *
+ * @author Josh Rehm
+ * @author Quinton Miller
+ * @version 3/17/2019
+ * 
+ * This is the implementation of internal node inherited from Node.
  *
  */
 public class Internal implements Node {

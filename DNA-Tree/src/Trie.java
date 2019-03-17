@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * @author Josh
  * @author Quinton
- *
+ * @version 3/17/2019
  */
 public class Trie {
     /**

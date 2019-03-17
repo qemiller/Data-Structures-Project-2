@@ -3,8 +3,11 @@
  */
 
 /**
- * @author Josh
- *
+ * @author Josh Rehm
+ * @author Quinton Miller
+ * @version 3/17/2019
+ * 
+ * This is the implementation of the Flyweight Node inherited from Node
  */
 public class Flyweight implements Node {
     private static Flyweight fly = null;

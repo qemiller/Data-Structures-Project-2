@@ -2,8 +2,9 @@
  * @author Josh
  * @author Quinton
  * 
- * @version 3/5/2019
+ * @version 3/17/2019
  *
+ *This is the implementation the Leaf Node inherited from Node
  */
 public class Leaf implements Node {
     private String leafData;
@@ -190,21 +191,24 @@ public class Leaf implements Node {
         }
     }
 
+
     /**
      * 
      * @return The string stored in the leaf node.
      * 
-     * This gets the data in the leaf node.
+     *         This gets the data in the leaf node.
      */
     public String getString() {
         return leafData;
     }
 
+
     /**
      * 
-     * @param s new value of the node
+     * @param s
+     *            new value of the node
      * 
-     * This sets the data of the leaf node to s.
+     *            This sets the data of the leaf node to s.
      */
     public void setString(String s) {
         leafData = s;

@@ -5,8 +5,11 @@
 /**
  * @author Josh
  * @author Quinton
+ * @version 3/17/2019
  *
- *
+ *          This is the deceleration of the Node class the implementation of
+ *          these functions can be found in the Flyweight, Internal, and Leaf
+ *          classes.
  */
 public interface Node {
     /**
