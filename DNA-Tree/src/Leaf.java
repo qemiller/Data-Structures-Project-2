@@ -1,18 +1,22 @@
 /**
- * 
- */
-
-/**
  * @author Josh
  * @author Quinton
  * 
- * @version 3/5/2019
+ * @version 3/17/2019
  *
+ *This is the implementation the Leaf Node inherited from Node
  */
 public class Leaf implements Node {
     private String leafData;
 
 
+    /**
+     * 
+     * @param s
+     *            New value of leaf data
+     * 
+     *            This constructs a new leaf data with the value s.
+     */
     Leaf(String s) {
         this.leafData = s;
     }
@@ -25,6 +29,26 @@ public class Leaf implements Node {
      */
     @Override
     public void print(int tabIndex, String type) {
+        printHelper(tabIndex, type);
+    }
+
+
+    /**
+     * 
+     * @param tabIndex
+     *            How many tabs to put before the sequence when it's being
+     *            printed
+     * @param type
+     *            How to output the tree.
+     * 
+     *            Prints the tree based on the type.
+     *            Dump for a dump of the tree.
+     *            Lengths to print the length of the sequence as well as the
+     *            sequence.
+     *            Stats to print the statistics of the sequence along with the
+     *            sequence.
+     */
+    private void printHelper(int tabIndex, String type) {
         String printTabs = "";
         for (int i = 0; i < tabIndex; i++) {
             printTabs = printTabs.concat("  ");
@@ -74,6 +98,23 @@ public class Leaf implements Node {
 
     @Override
     public Node insert(String s, int strIndex) {
+        return insertHelper(s, strIndex);
+    }
+
+
+    /**
+     * 
+     * @param s
+     *            sequence to be inserted
+     * @param strIndex
+     *            index of the string being looked at
+     * @return the new internal node made or the current leaf node
+     * 
+     *         This will construct a new internal node with the new data and the
+     *         current leaf data if the sequences arent the same. Otherwise it
+     *         returns the current leaf node and outputs an error.
+     */
+    private Node insertHelper(String s, int strIndex) {
         if (!this.leafData.equals(s)) {
             Trie.setInsertDepth(strIndex);
             return new Internal(s, strIndex, this.leafData);
@@ -89,6 +130,23 @@ public class Leaf implements Node {
 
     @Override
     public Node remove(String s, int strIndex) {
+        return removeHelper(s, strIndex);
+    }
+
+
+    /**
+     * 
+     * @param s
+     *            sequence to be removed
+     * @param strIndex
+     *            index of the string being looked at.
+     * @return the current node or the flyweight node.
+     * 
+     *         This removes the node if the sequences are the same, otherwise it
+     *         outputs an error saying that the sequence doesn't exist and
+     *         returns the current leaf node.
+     */
+    private Node removeHelper(String s, int strIndex) {
         if (this.leafData.equals(s)) {
             System.out.println("sequnce " + s + " removed");
             return Flyweight.getInstance();
@@ -101,11 +159,26 @@ public class Leaf implements Node {
 
 
     @Override
-    public void search(
-        String s,
-        int strIndex,
-        boolean exact,
-        int nodesVisited) {
+    public void search(String s, int strIndex, boolean exact) {
+        searchHelper(s, strIndex, exact);
+    }
+
+
+    /**
+     * 
+     * @param s
+     *            sequence being searched for.
+     * @param strIndex
+     *            index of the string being looked at
+     * @param exact
+     *            are we looking for an exact match or not
+     * 
+     *            This checks if the data in the node is the same as the
+     *            sequence being searched for if exact is true. Otherwise, it
+     *            checks to see if the leaf data at strIndex - 1 is the same as
+     *            the last character of the search sequence
+     */
+    private void searchHelper(String s, int strIndex, boolean exact) {
         Trie.nodeVisited();
         if (exact) {
             if (this.leafData.equals(s)) {
@@ -116,15 +189,27 @@ public class Leaf implements Node {
             if (this.leafData.charAt(strIndex - 1) == s.charAt(strIndex - 1))
                 Trie.matchFound(this.leafData);
         }
-
     }
 
 
+    /**
+     * 
+     * @return The string stored in the leaf node.
+     * 
+     *         This gets the data in the leaf node.
+     */
     public String getString() {
         return leafData;
     }
 
 
+    /**
+     * 
+     * @param s
+     *            new value of the node
+     * 
+     *            This sets the data of the leaf node to s.
+     */
     public void setString(String s) {
         leafData = s;
     }

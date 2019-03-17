@@ -25,14 +25,15 @@ public class TrieTest extends TestCase {
         DNA.print("dump");
         DNA.print("lengths");
         DNA.print("stats");
-        DNA.search("AAAA", 0, true, 0);
-        DNA.search("AA", 0, false, 0);
-        DNA.search("ACGT", 0, true, 0);
+        DNA.search("AAAA$");
+        DNA.search("AA");
+        DNA.search("ACGT$");
     }
     
     public void testInserts(){
         Trie DNA = new Trie();
         assertTrue(DNA.insert("BBBB") instanceof Flyweight);
+        assertTrue(DNA.insert("ABBB") instanceof Flyweight);
         //Attempt to remove empty
         assertTrue(DNA.remove("ACGT") instanceof Flyweight);
         //Add and test for multiple error
