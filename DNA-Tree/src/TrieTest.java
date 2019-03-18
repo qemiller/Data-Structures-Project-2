@@ -78,11 +78,10 @@ public class TrieTest extends TestCase {
      */
     public void testInserts1() {
         Trie dna = new Trie();
-        dna.insert("AAA");
+        assertTrue(dna.insert("AAA") instanceof Leaf);
         dna.insert("ACA");
         // AA properly placed, but when AC added it is placed wrong
         dna.insert("AC");
-        assertTrue(true);
     }
 
     /**
@@ -90,20 +89,16 @@ public class TrieTest extends TestCase {
      */
     public void testInserts2() {
         Trie dna = new Trie();
-        dna.insert("A");
+        assertTrue(dna.insert("A") instanceof Leaf);
         dna.remove("A");
         dna.insert("AA");
         dna.remove("A");
+        dna.insert("AA");
+        dna.insert("A");
+        dna.insert("AA");
         dna.insert("AAA");
         dna.remove("AA");
         dna.insert("AC");
-        dna.insert("AAA");
-        dna.insert("A");
-        dna.insert("C");
-        dna.insert("AAAA");
-        dna.insert("AAC");
-        dna.insert("AAG");
-        dna.insert("AAT");
-        assertEquals(1, 1);
+        dna.insert("ACAT");
     }
 }
