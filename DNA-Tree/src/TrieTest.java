@@ -42,55 +42,58 @@ public class TrieTest extends TestCase {
         dna.search("ACGT$");
     }
 
+
     /**
      * This tests the insert method of the trie
      */
-    public void testBasics(){
-        Trie DNA = new Trie();
-        //Test empty dumps
-        DNA.print("dump");
-        DNA.print("lengths");
-        DNA.print("stats");
-        //Test against bad sequences
-        assertTrue(DNA.insert("BBBB") instanceof Flyweight);
-        assertTrue(DNA.insert("ABBB") instanceof Flyweight);
-        //Attempt to remove empty
-        assertTrue(DNA.remove("ACGT") instanceof Flyweight);
-        //Add and test for multiple error
-        assertTrue(DNA.insert("ACGT") instanceof Leaf);
-        assertTrue(DNA.insert("ACGT") instanceof Leaf);
-        //Remove after add
-        assertTrue(DNA.remove("ACGT") instanceof Flyweight);
-        DNA.insert("ACGT");
-        //Add multiple and remove both
-        assertTrue(DNA.insert("AAGT") instanceof Internal);
-        assertTrue(DNA.remove("ACGT") instanceof Leaf);
-        assertTrue(DNA.remove("AAGT") instanceof Flyweight);
-        DNA.insert("ACGT");
-        DNA.insert("AAAA");
-        DNA.insert("AAGT");
-        assertTrue(DNA.remove("ACGT") instanceof Internal);
+    public void testBasics() {
+        Trie dna = new Trie();
+        // Test empty dumps
+        dna.print("dump");
+        dna.print("lengths");
+        dna.print("stats");
+        // Test against bad sequences
+        assertTrue(dna.insert("BBBB") instanceof Flyweight);
+        assertTrue(dna.insert("ABBB") instanceof Flyweight);
+        // Attempt to remove empty
+        assertTrue(dna.remove("ACGT") instanceof Flyweight);
+        // Add and test for multiple error
+        assertTrue(dna.insert("ACGT") instanceof Leaf);
+        assertTrue(dna.insert("ACGT") instanceof Leaf);
+        // Remove after add
+        assertTrue(dna.remove("ACGT") instanceof Flyweight);
+        dna.insert("ACGT");
+        // Add multiple and remove both
+        assertTrue(dna.insert("AAGT") instanceof Internal);
+        assertTrue(dna.remove("ACGT") instanceof Leaf);
+        assertTrue(dna.remove("AAGT") instanceof Flyweight);
+        dna.insert("ACGT");
+        dna.insert("AAAA");
+        dna.insert("AAGT");
+        assertTrue(dna.remove("ACGT") instanceof Internal);
     }
-    
+
+
     public void testInserts1() {
-        Trie DNA = new Trie();
-        DNA.insert("AAA");
-        DNA.insert("ACA");
-        //AA properly placed, but when AC added it is placed wrong
-        DNA.insert("AC");
+        Trie dna = new Trie();
+        dna.insert("AAA");
+        dna.insert("ACA");
+        // AA properly placed, but when AC added it is placed wrong
+        dna.insert("AC");
     }
-    
+
+
     public void testInserts2() {
-        Trie DNA = new Trie();
-        DNA.insert("A");
-        DNA.insert("AA");
-        DNA.insert("AC");
-        DNA.insert("AG");
-        DNA.insert("AT");
-        //Further example where AA gets deleted
-        DNA.insert("AAA");
-        DNA.insert("AAC");
-        DNA.insert("AAG");
-        DNA.insert("AAT");
+        Trie dna = new Trie();
+        dna.insert("A");
+        dna.insert("AA");
+        dna.insert("AC");
+        dna.insert("AG");
+        dna.insert("AT");
+        // Further example where AA gets deleted
+        dna.insert("AAA");
+        dna.insert("AAC");
+        dna.insert("AAG");
+        dna.insert("AAT");
     }
 }
