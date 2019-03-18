@@ -151,7 +151,7 @@ public class Leaf implements Node {
             return Flyweight.getInstance();
         }
         else {
-            System.out.println("sequence" + s + "doesn't exist");
+            System.out.println("sequence " + s + " doesn't exist");
             return this;
         }
     }

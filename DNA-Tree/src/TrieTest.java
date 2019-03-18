@@ -91,11 +91,11 @@ public class TrieTest extends TestCase {
     public void testInserts2() {
         Trie dna = new Trie();
         dna.insert("A");
+        dna.remove("A");
         dna.insert("AA");
         dna.remove("A");
-        dna.insert("A");
-        dna.remove("AA");
         dna.insert("AAA");
+        dna.remove("AA");
         dna.insert("AC");
         dna.insert("AAA");
         dna.insert("A");
@@ -104,6 +104,6 @@ public class TrieTest extends TestCase {
         dna.insert("AAC");
         dna.insert("AAG");
         dna.insert("AAT");
-        assertTrue(true);
-        }
+        assertEquals(1, 1);
+    }
 }
