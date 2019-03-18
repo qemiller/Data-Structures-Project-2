@@ -88,12 +88,8 @@ public class TrieTest extends TestCase {
         dna.insert("A");
         dna.insert("AA");
         dna.insert("AC");
-        dna.insert("AG");
-        dna.insert("AT");
-        // Further example where AA gets deleted
         dna.insert("AAA");
-        dna.insert("AAC");
-        dna.insert("AAG");
-        dna.insert("AAT");
+        dna.insert("A");
+        dna.insert("AAAA");
     }
 }
