@@ -49,8 +49,8 @@ public class Internal implements Node {
         dollar = Flyweight.getInstance();
 
         if (s.length() > curData.length()) {
-            insert(s, strIndex);
             insert(curData, strIndex);
+            insert(s, strIndex);
         }
         else {
             insert(curData, strIndex);
@@ -134,8 +134,7 @@ public class Internal implements Node {
             dollar = dollar.insert(s, strIndex);
         }
         else if (((Leaf)dollar).getString().contentEquals(s)) {
-            System.out.println("Cannot insert a leaf node with the"
-                + " exact same data of another node");
+            System.out.println("sequence " + s + " already exsits");
         }
         else {
             // Swap and continue

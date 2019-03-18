@@ -83,7 +83,7 @@ public class Flyweight implements Node {
      *         tree.
      */
     private Node removeHelper(String s, int strIndex) {
-        System.out.println("sequence " + s + "does not exist");
+        System.out.println("sequence " + s + " does not exist");
         return this;
     }
 
