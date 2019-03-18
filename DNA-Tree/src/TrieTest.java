@@ -90,15 +90,18 @@ public class TrieTest extends TestCase {
     public void testInserts2() {
         Trie dna = new Trie();
         assertTrue(dna.insert("A") instanceof Leaf);
-        dna.remove("A");
-        dna.insert("AA");
-        dna.remove("A");
-        dna.insert("AA");
-        dna.insert("A");
-        dna.insert("AA");
         dna.insert("AAA");
-        dna.remove("AA");
-        dna.insert("AC");
-        dna.insert("ACAT");
+        dna.insert("AA");
+        dna.insert("AAAAA");
+        dna.insert("AAA");
+        dna.insert("AAAAAAA");
+        // AAAA getting placed in correct spot at depth 5, but comes up as depth 4
+        dna.insert("AAAA");
+        dna.insert("AAA");
+        dna.insert("AA");
+        dna.insert("AAAAA");
+        dna.insert("AAA");
+        dna.insert("AAAAAAA");
+        dna.insert("AAAA");
     }
 }
