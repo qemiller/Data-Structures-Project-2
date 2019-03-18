@@ -92,9 +92,14 @@ public class TrieTest extends TestCase {
         Trie dna = new Trie();
         dna.insert("A");
         dna.insert("AA");
+        dna.remove("A");
+        dna.insert("A");
+        dna.remove("AA");
+        dna.insert("AAA");
         dna.insert("AC");
         dna.insert("AAA");
         dna.insert("A");
+        dna.insert("C");
         dna.insert("AAAA");
         dna.insert("AAC");
         dna.insert("AAG");

@@ -229,31 +229,37 @@ public class Internal implements Node {
      *         tree.
      */
     private Node removeHelp(String sequence, int strIndex) {
-        Node child = getChild(sequence.charAt(strIndex));
-        if (child instanceof Leaf) {
-            if (sequence.charAt(strIndex) == 'A') {
-                a = a.remove(sequence, 0);
+        try {
+            Node child = getChild(sequence.charAt(strIndex));
+            if (child instanceof Leaf) {
+                if (sequence.charAt(strIndex) == 'A') {
+                    a = a.remove(sequence, 0);
+                }
+    
+                else if (sequence.charAt(strIndex) == 'C') {
+                    c = c.remove(sequence, 0);
+                }
+    
+                else if (sequence.charAt(strIndex) == 'G') {
+                    g = g.remove(sequence, 0);
+                }
+    
+                else if (sequence.charAt(strIndex) == 'T') {
+                    t = t.remove(sequence, 0);
+                }
             }
-
-            else if (sequence.charAt(strIndex) == 'C') {
-                c = c.remove(sequence, 0);
+            else if (child == Flyweight.getInstance()) {
+                System.out.println("sequence" + sequence + "doesn't exist");
+                return this;
             }
-
-            else if (sequence.charAt(strIndex) == 'G') {
-                g = g.remove(sequence, 0);
-            }
-
-            else if (sequence.charAt(strIndex) == 'T') {
-                t = t.remove(sequence, 0);
+            else {
+                setChild(sequence.charAt(strIndex), child.remove(sequence, strIndex
+                    + 1));
             }
         }
-        else if (child == Flyweight.getInstance()) {
-            System.out.println("sequence" + sequence + "doesn't exist");
-            return this;
-        }
-        else {
-            setChild(sequence.charAt(strIndex), child.remove(sequence, strIndex
-                + 1));
+        //If we come down here, we are removing an exact node
+        catch(Exception e) {
+            dollar = dollar.remove(sequence, 0);
         }
 
         Node collapse = Flyweight.getInstance();
