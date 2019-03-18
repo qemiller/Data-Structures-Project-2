@@ -95,7 +95,6 @@ public class TrieTest extends TestCase {
         dna.insert("AAAAA");
         dna.insert("AAA");
         dna.insert("AAAAAAA");
-        // AAAA getting placed in correct spot at depth 5, but comes up as depth 4
         dna.insert("AAAA");
         dna.insert("AAA");
         dna.insert("AA");

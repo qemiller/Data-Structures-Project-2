@@ -135,7 +135,7 @@ public class Internal implements Node {
      */
     private void insertDollar(String s, int strIndex) {
         if (dollar instanceof Flyweight) {
-            dollar = dollar.insert(s, strIndex);
+            dollar = dollar.insert(s, strIndex + 1);
         }
         else if (((Leaf)dollar).getString().contentEquals(s)) {
             System.out.println("sequence " + s + " already exists");
