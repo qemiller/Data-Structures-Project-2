@@ -120,8 +120,7 @@ public class Leaf implements Node {
             return new Internal(s, strIndex, this.leafData);
         }
         else {
-            System.out.println("Cannot insert a leaf node with the"
-                + " exact same data of another node");
+            System.out.println("sequence " + s + " already exsists");
             Trie.setInsertDepth(-1);
             return this;
         }
