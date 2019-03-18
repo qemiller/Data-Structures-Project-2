@@ -50,21 +50,11 @@ public class Internal implements Node {
 
         if (s.length() > curData.length()) {
             insert(s, strIndex);
-            if (s.startsWith(curData)) {
-                insertDollar(curData, strIndex);
-            }
-            else {
-                insert(curData, strIndex);
-            }
+            insert(curData, strIndex);
         }
         else {
             insert(curData, strIndex);
-            if (curData.startsWith(s)) {
-                insertDollar(s, strIndex);
-            }
-            else {
-                insert(s, strIndex);
-            }
+            insert(s, strIndex);
         }
     }
 
@@ -107,13 +97,13 @@ public class Internal implements Node {
             }
             // We have found the bottom of the tree, now we must reorganize
             else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
-                insertDollar(s, strIndex);
-                //                Internal newChild = new Internal();
-//                newChild.setChild(((Leaf)currChild).getString().charAt(
-//                    strIndex), currChild);
-//                newChild.setChild('$', ((Internal)newChild).$.insert(s, strIndex
-//                    + 2));
-//                setChild(s.charAt(strIndex), newChild);
+                //insertDollar(s, strIndex);
+                Internal newChild = new Internal();
+                newChild.setChild(((Leaf)currChild).getString().charAt(
+                    strIndex), currChild);
+                newChild.setChild('$', ((Internal)newChild).dollar.insert(s, strIndex
+                    + 2));
+                setChild(s.charAt(strIndex), newChild);
             }
             // currChild is not at the bottom of the trie, so we insert new
             // node, either

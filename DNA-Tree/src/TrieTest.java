@@ -74,8 +74,8 @@ public class TrieTest extends TestCase {
     
     public void testInserts1() {
         Trie DNA = new Trie();
-        DNA.insert("A");
-        DNA.insert("AA");
+        DNA.insert("AAA");
+        DNA.insert("ACA");
         //AA properly placed, but when AC added it is placed wrong
         DNA.insert("AC");
     }
