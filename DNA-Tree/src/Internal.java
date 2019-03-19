@@ -91,7 +91,11 @@ public class Internal implements Node {
             }
             // We have found the bottom of the tree, now we must reorganize
             else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
+<<<<<<< Updated upstream
                 if (((Leaf) currChild).getString().equals(s)) {
+=======
+                if (((Leaf)currChild).getString().contentEquals(s)) {
+>>>>>>> Stashed changes
                     System.out.println("sequence " + s + " already exists");
                 }
                 else {
@@ -233,15 +237,15 @@ public class Internal implements Node {
                 if (sequence.charAt(strIndex) == 'A') {
                     a = a.remove(sequence, 0);
                 }
-    
+
                 else if (sequence.charAt(strIndex) == 'C') {
                     c = c.remove(sequence, 0);
                 }
-    
+
                 else if (sequence.charAt(strIndex) == 'G') {
                     g = g.remove(sequence, 0);
                 }
-    
+
                 else if (sequence.charAt(strIndex) == 'T') {
                     t = t.remove(sequence, 0);
                 }
@@ -251,11 +255,11 @@ public class Internal implements Node {
                 return this;
             }
             else {
-                setChild(sequence.charAt(strIndex),
-                        child.remove(sequence, strIndex + 1));
+                setChild(sequence.charAt(strIndex), child.remove(sequence,
+                    strIndex + 1));
             }
         }
-        //If we come down here, we are removing an exact node
+        // If we come down here, we are removing an exact node
         catch (Exception e) {
             dollar = dollar.remove(sequence, 0);
         }
