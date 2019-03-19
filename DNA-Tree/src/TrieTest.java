@@ -103,5 +103,17 @@ public class TrieTest extends TestCase {
         dna.insert("AAA");
         dna.insert("AAAAAAA");
         dna.insert("AAAA");
+        dna.print("dump");
+        dna.print("stats");
+        dna.print("lengths");
+        dna.remove("A");
+        dna.remove("AAA");
+        dna.remove("AAAAA");
+        dna.remove("AAAAA");
+        dna.remove("AAAAAAA");
+        dna.remove("AA");
+        dna.remove("AAAAA");
+        dna.remove("AAAA");
+        dna.remove("AAAAA");
     }
 }

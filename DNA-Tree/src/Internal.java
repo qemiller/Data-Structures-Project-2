@@ -97,7 +97,7 @@ public class Internal implements Node {
             }
             // We have found the bottom of the tree, now we must reorganize
             else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
-                if(((Leaf) currChild).getString().contentEquals(s)) {
+                if(((Leaf) currChild).getString().equals(s)) {
                     System.out.println("sequence " + s + " already exists");
                 }
                 else {
@@ -137,7 +137,7 @@ public class Internal implements Node {
         if (dollar instanceof Flyweight) {
             dollar = dollar.insert(s, strIndex + 1);
         }
-        else if (((Leaf)dollar).getString().contentEquals(s)) {
+        else if (((Leaf)dollar).getString().equals(s)) {
             System.out.println("sequence " + s + " already exists");
         }
         else {
