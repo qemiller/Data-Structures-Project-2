@@ -97,7 +97,7 @@ public class Internal implements Node {
             }
             // We have found the bottom of the tree, now we must reorganize
             else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
-                if(((Leaf) currChild).getString().equals(s)) {
+                if (((Leaf) currChild).getString().equals(s)) {
                     System.out.println("sequence " + s + " already exists");
                 }
                 else {
