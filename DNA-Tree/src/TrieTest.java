@@ -1,3 +1,4 @@
+import java.util.Random;
 import junit.framework.TestCase;
 
 /**
@@ -97,30 +98,37 @@ public class TrieTest extends TestCase {
 
     public void testInserts2() {
         Trie dna = new Trie();
-        assertTrue(dna.insert("A") instanceof Leaf);
-        dna.insert("AAA");
+        assertTrue(dna.insert("AA") instanceof Leaf);
         dna.insert("AA");
-        dna.insert("AAAAA");
-        dna.insert("AAA");
-        dna.insert("AAAAAAA");
-        dna.insert("AAAA");
-        dna.insert("AAA");
+        dna.insert("C");
+        dna.insert("A");
         dna.insert("AA");
-        dna.insert("AAAAA");
-        dna.insert("AAA");
-        dna.insert("AAAAAAA");
-        dna.insert("AAAA");
-        dna.print("dump");
-        dna.print("stats");
-        dna.print("lengths");
         dna.remove("A");
-        dna.remove("AAA");
-        dna.remove("AAAAA");
-        dna.remove("AAAAA");
-        dna.remove("AAAAAAA");
-        dna.remove("AA");
-        dna.remove("AAAAA");
-        dna.remove("AAAA");
-        dna.remove("AAAAA");
+        dna.insert("AA");
+        dna.insert("AAA");
+        dna.insert("AA");
+        dna.insert("A");
+        dna.insert("AA");
+    }
+    
+    public void testRandomSeq() {
+        Trie dna = new Trie();
+        Random randy = new Random();
+        String alphabet = "ACGT";
+        char arr1[] = new char[1];
+        char arr2[] = new char[2];
+        for (int i = 0; i < 50; i++) {
+            for (int j = 0; j < 1; j++) {
+                arr1[j] = alphabet.charAt(randy.nextInt(alphabet.length()));
+            }
+            String dnaString1 = new String(arr1);
+            dna.insert(dnaString1);
+            for (int k = 0; k < 2; k++) {
+                arr2[k] = alphabet.charAt(randy.nextInt(alphabet.length()));
+            }
+            String dnaString2 = new String(arr2);
+            dna.insert(dnaString2);
+        }
+        dna.print("stats");
     }
 }
