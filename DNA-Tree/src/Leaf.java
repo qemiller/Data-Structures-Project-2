@@ -115,13 +115,12 @@ public class Leaf implements Node {
      *         returns the current leaf node and outputs an error.
      */
     private Node insertHelper(String s, int strIndex) {
-        if (!this.leafData.equals(s)) {
-            Trie.setInsertDepth(strIndex);
-            return new Internal(s, strIndex, this.leafData);
-        }
-        else {
+        if (this.leafData.equals(s)) {
             Trie.setInsertDepth(-1);
             return this;
+        }
+        else {
+            return new Internal(s, strIndex, this.leafData);
         }
     }
 
@@ -184,7 +183,7 @@ public class Leaf implements Node {
             }
         }
         else {
-            if (this.leafData.charAt(strIndex - 1) == s.charAt(strIndex - 1)) {
+            if (this.leafData.startsWith(s)) {
                 Trie.matchFound(this.leafData);
             }
         }

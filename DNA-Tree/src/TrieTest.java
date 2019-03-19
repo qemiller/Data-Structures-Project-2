@@ -16,13 +16,10 @@ public class TrieTest extends TestCase {
     public void testGiven() {
         Trie dna = new Trie();
         assertTrue(dna.insert("ACGT") instanceof Leaf);
-        dna.print("dump");
         assertTrue(dna.insert("AAAA") instanceof Internal);
-        dna.print("dump");
         dna.insert("AA");
-        dna.print("dump");
+        dna.insert("AAA");
         dna.insert("AAACCCCGGTGAAAACGTA");
-        dna.print("dump");
         dna.insert("ACTGGGAA");
         dna.print("dump");
         dna.remove("ACGT");
@@ -40,12 +37,18 @@ public class TrieTest extends TestCase {
         dna.search("AAAA$");
         dna.search("AA");
         dna.search("ACGT$");
+        dna.search("AAACCCCGGTGAAAACGTAT$");
+        dna.insert("AAACCCCG");
+        dna.insert("AAACCC");
+        dna.insert("AAAAT");
+        
     }
 
 
     /**
      * This tests the insert method of the trie
      */
+
     public void testBasics() {
         Trie dna = new Trie();
         // Test empty dumps
@@ -77,6 +80,7 @@ public class TrieTest extends TestCase {
     /**
      * tests the insert method again
      */
+
     public void testInserts1() {
         Trie dna = new Trie();
         assertTrue(dna.insert("AAA") instanceof Leaf);
@@ -90,6 +94,7 @@ public class TrieTest extends TestCase {
     /**
      * tests insert again.
      */
+
     public void testInserts2() {
         Trie dna = new Trie();
         assertTrue(dna.insert("A") instanceof Leaf);

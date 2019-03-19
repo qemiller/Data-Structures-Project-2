@@ -58,8 +58,14 @@ public class Parse {
                         break;
 
                     case "search":
-                        sequence = lineScan.next();
-                        tree.search(sequence);
+                        if (lineScan.hasNext()) {
+                            sequence = lineScan.next();
+                            tree.search(sequence);
+                        }
+                        else {
+                            System.out.println("# of nodes visited: 1");
+                            System.out.println("no sequence found");
+                        }
                         lineScan.close();
                         break;
 

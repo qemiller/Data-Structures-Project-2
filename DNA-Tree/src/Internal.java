@@ -134,12 +134,6 @@ public class Internal implements Node {
         else if (((Leaf)dollar).getString().equals(s)) {
             ((Leaf)dollar).insert(s, strIndex);
         }
-        else {
-            // Swap and continue
-            String temp = ((Leaf)dollar).getString();
-            ((Leaf)dollar).setString(s);
-            insert(temp, strIndex);
-        }
     }
 
 
@@ -307,7 +301,7 @@ public class Internal implements Node {
                 ((Internal)this).dollar.search(s, strPos - 1, exact);
             }
             else {
-                childNode.search(s, strPos, exact);
+                childNode.search(s, strPos - 1, exact);
             }
         }
         else {
