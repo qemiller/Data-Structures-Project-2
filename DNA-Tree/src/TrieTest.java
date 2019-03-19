@@ -123,4 +123,19 @@ public class TrieTest extends TestCase {
         dna.remove("AAAA");
         dna.remove("AAAAA");
     }
+    
+    /**
+     * Tests the insert function against random inputs.
+     */
+    public void testRandom()
+    {
+        Trie dna = new Trie();
+        dna.insert("T");
+        dna.insert("TG");
+        dna.insert("G");
+        dna.insert("CG");
+        dna.insert("C");
+        assertTrue(dna.insert("CG") instanceof Internal);
+        
+    }
 }

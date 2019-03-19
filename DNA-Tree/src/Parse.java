@@ -52,8 +52,14 @@ public class Parse {
                         break;
 
                     case "remove":
-                        sequence = lineScan.next();
-                        tree.remove(sequence);
+                        if (lineScan.hasNext()) {
+                            sequence = lineScan.next();
+                            tree.remove(sequence);
+                        }
+                        else
+                        {
+                            System.out.println("no sequence found");
+                        }
                         lineScan.close();
                         break;
 

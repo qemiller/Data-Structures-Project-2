@@ -81,23 +81,15 @@ public class Internal implements Node {
     public Node insertHelper(String s, int strIndex) {
         if (strIndex < s.length()) {
             Node currChild = getChild(s.charAt(strIndex));
-
-            if (dollar instanceof Leaf && s.length() < ((Leaf)dollar)
-                .getString().length() && ((Leaf)dollar).getString().startsWith(
-                    s)) {
-                String temp = ((Leaf)dollar).getString();
-                ((Leaf)dollar).setString(s);
-                insert(temp, 0);
-            }
             // We have found the bottom of the tree, now we must reorganize
-            else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
+            if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
                 if (((Leaf)currChild).getString().equals(s)) {
                     ((Leaf)currChild).insert(s, strIndex);
                 }
                 else {
                     Internal newChild = new Internal();
                     newChild.setChild(((Leaf)currChild).getString().charAt(
-                        strIndex), currChild);
+                        strIndex + 1), currChild);
                     newChild.setChild('$', ((Internal)newChild).dollar.insert(s,
                         strIndex + 2));
                     setChild(s.charAt(strIndex), newChild);
@@ -133,6 +125,12 @@ public class Internal implements Node {
         }
         else if (((Leaf)dollar).getString().equals(s)) {
             ((Leaf)dollar).insert(s, strIndex);
+        }
+        else {
+            // Swap and continue
+            String temp = ((Leaf)dollar).getString();
+            ((Leaf)dollar).setString(s);
+            insert(temp, strIndex);
         }
     }
 
@@ -225,19 +223,19 @@ public class Internal implements Node {
             Node child = getChild(sequence.charAt(strIndex));
             if (child instanceof Leaf) {
                 if (sequence.charAt(strIndex) == 'A') {
-                    a = a.remove(sequence, 0);
+                    a = a.remove(sequence, strIndex);
                 }
 
                 else if (sequence.charAt(strIndex) == 'C') {
-                    c = c.remove(sequence, 0);
+                    c = c.remove(sequence, strIndex);
                 }
 
                 else if (sequence.charAt(strIndex) == 'G') {
-                    g = g.remove(sequence, 0);
+                    g = g.remove(sequence, strIndex);
                 }
 
                 else if (sequence.charAt(strIndex) == 'T') {
-                    t = t.remove(sequence, 0);
+                    t = t.remove(sequence, strIndex);
                 }
             }
             else if (child == Flyweight.getInstance()) {
