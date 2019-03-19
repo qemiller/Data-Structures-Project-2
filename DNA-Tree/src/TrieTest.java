@@ -82,7 +82,7 @@ public class TrieTest extends TestCase {
         dna.insert("ACA");
         // AA properly placed, but when AC added it is placed wrong
         dna.insert("AC");
-        assertTrue(true);
+        assertTrue(dna.insert("AC") instanceof Internal);
     }
 
     /**
@@ -98,7 +98,6 @@ public class TrieTest extends TestCase {
         dna.insert("AAAA");
         dna.insert("AAC");
         dna.insert("AAG");
-        dna.insert("AAT");
-        assertTrue(true);
-        }
+        assertTrue(dna.insert("AAT") instanceof Internal);
+    }
 }
