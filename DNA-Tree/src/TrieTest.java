@@ -42,7 +42,9 @@ public class TrieTest extends TestCase {
         dna.insert("AAACCCCG");
         dna.insert("AAACCC");
         dna.insert("AAAAT");
-        
+        dna.remove("AA");
+        dna.print("dump");
+        dna.remove("AAACCCCGGTGAAAACGTAT");
     }
 
 
@@ -110,7 +112,8 @@ public class TrieTest extends TestCase {
         dna.insert("A");
         dna.insert("AA");
     }
-    
+
+
     /**
      * This will randomly generate sequences to be inserted into the tree.
      */
@@ -118,8 +121,8 @@ public class TrieTest extends TestCase {
         Trie dna = new Trie();
         Random randy = new Random();
         String alphabet = "ACGT";
-        char arr1[] = new char[1];
-        char arr2[] = new char[2];
+        char[] arr1 = new char[1];
+        char[] arr2 = new char[2];
         for (int i = 0; i < 50; i++) {
             for (int j = 0; j < 1; j++) {
                 arr1[j] = alphabet.charAt(randy.nextInt(alphabet.length()));
@@ -134,12 +137,12 @@ public class TrieTest extends TestCase {
         }
         dna.print("stats");
     }
-    
+
+
     /**
      * Tests the insert function against random inputs.
      */
-    public void testRandom()
-    {
+    public void testRandom() {
         Trie dna = new Trie();
         dna.insert("T");
         dna.insert("TG");
@@ -147,6 +150,11 @@ public class TrieTest extends TestCase {
         dna.insert("CG");
         dna.insert("C");
         assertTrue(dna.insert("CG") instanceof Internal);
-        
+        dna.insert("A");
+        dna.insert("AA");
+        dna.insert("AAA");
+        dna.insert("AAAA");
+        dna.insert("C");
+        dna.remove("AA");
     }
 }

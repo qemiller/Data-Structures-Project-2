@@ -219,40 +219,51 @@ public class Internal implements Node {
      *         tree.
      */
     private Node removeHelp(String sequence, int strIndex) {
-        try {
-            Node child = getChild(sequence.charAt(strIndex));
-            if (child instanceof Leaf) {
-                if (sequence.charAt(strIndex) == 'A') {
-                    a = a.remove(sequence, strIndex);
-                }
-
-                else if (sequence.charAt(strIndex) == 'C') {
-                    c = c.remove(sequence, strIndex);
-                }
-
-                else if (sequence.charAt(strIndex) == 'G') {
-                    g = g.remove(sequence, strIndex);
-                }
-
-                else if (sequence.charAt(strIndex) == 'T') {
-                    t = t.remove(sequence, strIndex);
-                }
+        Node child = getChild(sequence.charAt(strIndex));
+        if (child instanceof Leaf) {
+            if (sequence.charAt(strIndex) == 'A') {
+                a = a.remove(sequence, 0);
             }
-            else if (child == Flyweight.getInstance()) {
-                System.out.println("sequence " + sequence + " doesn't exist");
-                return this;
+
+            else if (sequence.charAt(strIndex) == 'C') {
+                c = c.remove(sequence, 0);
             }
-            else if (strIndex == sequence.length() - 1) {
-                ((Internal)child).dollar.remove(sequence, strIndex);
+
+            else if (sequence.charAt(strIndex) == 'G') {
+                g = g.remove(sequence, 0);
             }
-            else {
-                setChild(sequence.charAt(strIndex), child.remove(sequence,
-                    strIndex + 1));
+
+            else if (sequence.charAt(strIndex) == 'T') {
+                t = t.remove(sequence, 0);
             }
         }
-        // If we come down here, we are removing an exact node
-        catch (Exception e) {
-            dollar = dollar.remove(sequence, 0);
+        else if (child == Flyweight.getInstance()) {
+            System.out.println("sequence " + sequence + " does not exist");
+            return this;
+        }
+        else if (strIndex == sequence.length() - 1) {
+            setChild(sequence.charAt(strIndex), ((Internal)child).dollar.remove(
+                sequence, 0));
+            
+            Node collapse = Flyweight.getInstance();
+            for (Node childNode : ((Internal)child).getChildNodes()) {
+                if (childNode instanceof Internal) {
+                    child = this;
+                }
+                else if (childNode instanceof Leaf) {
+                    if (collapse == Flyweight.getInstance()) {
+                        collapse = childNode;
+                    }
+                    else {
+                        child = this;
+                    }
+                }
+            }
+            child = collapse;
+        }
+        else {
+            setChild(sequence.charAt(strIndex), child.remove(sequence, strIndex
+                + 1));
         }
 
         Node collapse = Flyweight.getInstance();
@@ -271,7 +282,7 @@ public class Internal implements Node {
         }
         return collapse;
     }
-
+    
 
     @Override
     public void search(String s, int strPos, boolean exact) {
