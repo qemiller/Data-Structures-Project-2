@@ -97,13 +97,17 @@ public class Internal implements Node {
             }
             // We have found the bottom of the tree, now we must reorganize
             else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
-                // insertDollar(s, strIndex);
-                Internal newChild = new Internal();
-                newChild.setChild(((Leaf)currChild).getString().charAt(
-                    strIndex), currChild);
-                newChild.setChild('$', ((Internal)newChild).dollar.insert(s,
-                    strIndex + 2));
-                setChild(s.charAt(strIndex), newChild);
+                if(((Leaf) currChild).getString().contentEquals(s)) {
+                    System.out.println("sequence " + s + " already exists");
+                }
+                else {
+                    Internal newChild = new Internal();
+                    newChild.setChild(((Leaf)currChild).getString().charAt(
+                        strIndex), currChild);
+                    newChild.setChild('$', ((Internal)newChild).dollar.insert(s,
+                        strIndex + 2));
+                    setChild(s.charAt(strIndex), newChild);
+                }
             }
             // currChild is not at the bottom of the trie, so we insert new
             // node, either
@@ -131,10 +135,10 @@ public class Internal implements Node {
      */
     private void insertDollar(String s, int strIndex) {
         if (dollar instanceof Flyweight) {
-            dollar = dollar.insert(s, strIndex);
+            dollar = dollar.insert(s, strIndex + 1);
         }
         else if (((Leaf)dollar).getString().contentEquals(s)) {
-            System.out.println("sequence " + s + " already exsits");
+            System.out.println("sequence " + s + " already exists");
         }
         else {
             // Swap and continue
@@ -229,31 +233,37 @@ public class Internal implements Node {
      *         tree.
      */
     private Node removeHelp(String sequence, int strIndex) {
-        Node child = getChild(sequence.charAt(strIndex));
-        if (child instanceof Leaf) {
-            if (sequence.charAt(strIndex) == 'A') {
-                a = a.remove(sequence, 0);
+        try {
+            Node child = getChild(sequence.charAt(strIndex));
+            if (child instanceof Leaf) {
+                if (sequence.charAt(strIndex) == 'A') {
+                    a = a.remove(sequence, 0);
+                }
+    
+                else if (sequence.charAt(strIndex) == 'C') {
+                    c = c.remove(sequence, 0);
+                }
+    
+                else if (sequence.charAt(strIndex) == 'G') {
+                    g = g.remove(sequence, 0);
+                }
+    
+                else if (sequence.charAt(strIndex) == 'T') {
+                    t = t.remove(sequence, 0);
+                }
             }
-
-            else if (sequence.charAt(strIndex) == 'C') {
-                c = c.remove(sequence, 0);
+            else if (child == Flyweight.getInstance()) {
+                System.out.println("sequence " + sequence + " doesn't exist");
+                return this;
             }
-
-            else if (sequence.charAt(strIndex) == 'G') {
-                g = g.remove(sequence, 0);
-            }
-
-            else if (sequence.charAt(strIndex) == 'T') {
-                t = t.remove(sequence, 0);
+            else {
+                setChild(sequence.charAt(strIndex),
+                        child.remove(sequence, strIndex + 1));
             }
         }
-        else if (child == Flyweight.getInstance()) {
-            System.out.println("sequence" + sequence + "doesn't exist");
-            return this;
-        }
-        else {
-            setChild(sequence.charAt(strIndex), child.remove(sequence, strIndex
-                + 1));
+        //If we come down here, we are removing an exact node
+        catch (Exception e) {
+            dollar = dollar.remove(sequence, 0);
         }
 
         Node collapse = Flyweight.getInstance();
