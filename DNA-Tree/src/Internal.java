@@ -242,6 +242,9 @@ public class Internal implements Node {
                 System.out.println("sequence " + sequence + " doesn't exist");
                 return this;
             }
+            else if (strIndex == sequence.length() - 1) {
+                ((Internal)child).dollar.remove(sequence, strIndex);
+            }
             else {
                 setChild(sequence.charAt(strIndex), child.remove(sequence,
                     strIndex + 1));

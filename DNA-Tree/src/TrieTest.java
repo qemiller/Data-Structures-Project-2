@@ -111,6 +111,9 @@ public class TrieTest extends TestCase {
         dna.insert("AA");
     }
     
+    /**
+     * This will randomly generate sequences to be inserted into the tree.
+     */
     public void testRandomSeq() {
         Trie dna = new Trie();
         Random randy = new Random();
@@ -127,7 +130,7 @@ public class TrieTest extends TestCase {
                 arr2[k] = alphabet.charAt(randy.nextInt(alphabet.length()));
             }
             String dnaString2 = new String(arr2);
-            dna.insert(dnaString2);
+            assertTrue(dna.insert(dnaString2) instanceof Internal);
         }
         dna.print("stats");
     }
