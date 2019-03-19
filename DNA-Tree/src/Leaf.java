@@ -120,7 +120,6 @@ public class Leaf implements Node {
             return new Internal(s, strIndex, this.leafData);
         }
         else {
-            System.out.println("sequence " + s + " already exists");
             Trie.setInsertDepth(-1);
             return this;
         }

@@ -73,6 +73,7 @@ public class TrieTest extends TestCase {
         assertTrue(dna.remove("ACGT") instanceof Internal);
     }
 
+
     /**
      * tests the insert method again
      */
@@ -84,6 +85,7 @@ public class TrieTest extends TestCase {
         dna.insert("AC");
         assertTrue(dna.insert("AC") instanceof Internal);
     }
+
 
     /**
      * tests insert again.

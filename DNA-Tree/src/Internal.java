@@ -91,12 +91,8 @@ public class Internal implements Node {
             }
             // We have found the bottom of the tree, now we must reorganize
             else if (currChild instanceof Leaf && strIndex + 1 == s.length()) {
-<<<<<<< Updated upstream
-                if (((Leaf) currChild).getString().equals(s)) {
-=======
-                if (((Leaf)currChild).getString().contentEquals(s)) {
->>>>>>> Stashed changes
-                    System.out.println("sequence " + s + " already exists");
+                if (((Leaf)currChild).getString().equals(s)) {
+                    ((Leaf)currChild).insert(s, strIndex);
                 }
                 else {
                     Internal newChild = new Internal();
@@ -136,7 +132,7 @@ public class Internal implements Node {
             dollar = dollar.insert(s, strIndex + 1);
         }
         else if (((Leaf)dollar).getString().equals(s)) {
-            System.out.println("sequence " + s + " already exists");
+            ((Leaf)dollar).insert(s, strIndex);
         }
         else {
             // Swap and continue

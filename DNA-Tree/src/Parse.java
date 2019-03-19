@@ -40,11 +40,14 @@ public class Parse {
                 }
                 String command = lineScan.next();
                 String sequence;
-                 switch (command) {
+                switch (command) {
 
                     case "insert":
-                        sequence = lineScan.next();
-                        tree.insert(sequence);
+                        if (lineScan.hasNext()) {
+                            sequence = lineScan.next();
+                            tree.insert(sequence);
+                        }
+
                         lineScan.close();
                         break;
 
@@ -69,7 +72,7 @@ public class Parse {
                             tree.print("dump");
                         }
                         lineScan.close();
-                        break;  
+                        break;
                     default:
                         System.out.println("Unrecognized input.");
                 }

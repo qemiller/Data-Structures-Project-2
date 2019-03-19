@@ -55,8 +55,7 @@ public class Trie {
                 System.out.println("sequence " + s + " inserted at level "
                     + Integer.toString(getInsertDepth()));
             }
-            else 
-            {
+            else {
                 System.out.println("sequence " + s + " already exists");
             }
             setInsertDepth(-1);
