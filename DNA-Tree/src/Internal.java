@@ -48,14 +48,8 @@ public class Internal implements Node {
         t = Flyweight.getInstance();
         dollar = Flyweight.getInstance();
 
-        if (s.length() > curData.length()) {
-            insert(curData, strIndex);
-            insert(s, strIndex);
-        }
-        else {
-            insert(curData, strIndex);
-            insert(s, strIndex);
-        }
+        insert(curData, strIndex);
+        insert(s, strIndex);
     }
 
 
