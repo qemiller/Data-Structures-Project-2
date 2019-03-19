@@ -242,24 +242,8 @@ public class Internal implements Node {
             return this;
         }
         else if (strIndex == sequence.length() - 1) {
-            setChild(sequence.charAt(strIndex), ((Internal)child).dollar.remove(
-                sequence, 0));
-            
-            Node collapse = Flyweight.getInstance();
-            for (Node childNode : ((Internal)child).getChildNodes()) {
-                if (childNode instanceof Internal) {
-                    child = this;
-                }
-                else if (childNode instanceof Leaf) {
-                    if (collapse == Flyweight.getInstance()) {
-                        collapse = childNode;
-                    }
-                    else {
-                        child = this;
-                    }
-                }
-            }
-            child = collapse;
+            ((Internal)child).dollar = ((Internal)child).dollar.remove(sequence,
+                0);
         }
         else {
             setChild(sequence.charAt(strIndex), child.remove(sequence, strIndex
@@ -282,7 +266,7 @@ public class Internal implements Node {
         }
         return collapse;
     }
-    
+
 
     @Override
     public void search(String s, int strPos, boolean exact) {
