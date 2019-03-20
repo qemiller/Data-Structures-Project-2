@@ -5,7 +5,7 @@
 /**
  * @author Josh Rehm
  * @author Quinton Miller
- * @version 3/17/2019
+ * @version 3/19/2019
  * 
  *          This is the implementation of the Flyweight Node inherited from Node
  */
@@ -69,7 +69,6 @@ public class Flyweight implements Node {
         return removeHelper(s, strIndex);
     };
 
-    
 
     /**
      * 

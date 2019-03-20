@@ -1,13 +1,12 @@
 import java.util.Stack;
 
 /**
- * 
- */
-
-/**
  * @author Josh
  * @author Quinton
- * @version 3/17/2019
+ * @version 3/19/2019
+ * 
+ *          This is the file that instantiates a tree and will run the functions
+ *          created in the Internal, Leaf, and Flyweight classes.
  */
 public class Trie {
     /**
@@ -16,7 +15,7 @@ public class Trie {
     private Node root;
 
     /**
-     * This is a stack that stores the sequences found during a search.
+     * This is a list that stores the sequences found during a search.
      */
     private static Stack<String> searchStrings = new Stack<String>();
 
@@ -113,14 +112,18 @@ public class Trie {
         root.search(s, 0, exact);
         System.out.println("# of nodes visited: " + Integer.toString(
             getNodesVisited()));
-        if (!searchStrings.empty()) {
-            while (!searchStrings.empty()) {
-                String top = searchStrings.pop();
-                System.out.println("sequence: " + top);
-            }
+        if (searchStrings.isEmpty()) {
+            System.out.println("no sequence found");
         }
         else {
-            System.out.println("no sequence found");
+            Stack<String> outputStack = new Stack<String>();
+            while (!searchStrings.empty()) {
+                outputStack.push(searchStrings.pop());
+            }
+            while (!outputStack.empty()) {
+                String top = outputStack.pop();
+                System.out.println("sequence: " + top);
+            }
         }
         setNodesVisited(0);
     }

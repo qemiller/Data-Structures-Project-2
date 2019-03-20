@@ -1,12 +1,9 @@
 /**
- * 
- */
-
-/**
  * @author Josh Rehm
  * @author Quinton Miller
- * @version 3/17/2019
+ * @version 3/19/2019
  *
+ *          This is the implementation of the internal node type for the Trie.
  */
 public class Internal implements Node {
 
@@ -244,6 +241,23 @@ public class Internal implements Node {
         else if (strIndex == sequence.length() - 1) {
             ((Internal)child).dollar = ((Internal)child).dollar.remove(sequence,
                 0);
+            Node collapse = Flyweight.getInstance();
+            for (Node childNode : ((Internal)child).getChildNodes()) {
+                if (childNode instanceof Internal) {
+                    collapse = child;
+                    break;
+                }
+                else if (childNode instanceof Leaf) {
+                    if (collapse == Flyweight.getInstance()) {
+                        collapse = childNode;
+                    }
+                    else {
+                        collapse = child;
+                        break;
+                    }
+                }
+            }
+            setChild(sequence.charAt(strIndex), collapse);
         }
         else {
             setChild(sequence.charAt(strIndex), child.remove(sequence, strIndex
@@ -292,12 +306,11 @@ public class Internal implements Node {
             child.search(s, strPos + 1, exact);
         }
         else if (exact) {
-            Node childNode = getChild(s.charAt(strPos - 1));
-            if (childNode instanceof Internal) {
-                ((Internal)this).dollar.search(s, strPos - 1, exact);
+            if (this instanceof Internal) {
+                ((Internal)this).dollar.search(s, strPos, exact);
             }
             else {
-                childNode.search(s, strPos - 1, exact);
+                this.search(s, strPos, exact);
             }
         }
         else {

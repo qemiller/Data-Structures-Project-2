@@ -1,11 +1,3 @@
-
-/**
- * @author Quinton Miller
- * @author Josh Rehm
- * 
- *         This will parse through the commands in the file and run the
- *         commands.
- */
 import java.io.File;
 import java.util.Scanner;
 
@@ -14,7 +6,7 @@ import java.util.Scanner;
  * @author Quinton Miller
  * @author Josh Rehm
  * 
- * @version 3/17/2019
+ * @version 3/19/2019
  * 
  *          This parses through the file and runs the trie based on the input.
  */
@@ -56,8 +48,7 @@ public class Parse {
                             sequence = lineScan.next();
                             tree.remove(sequence);
                         }
-                        else
-                        {
+                        else {
                             System.out.println("no sequence found");
                         }
                         lineScan.close();
@@ -69,7 +60,7 @@ public class Parse {
                             tree.search(sequence);
                         }
                         else {
-                            System.out.println("# of nodes visited: 1");
+                            System.out.println("# of nodes visited: 0");
                             System.out.println("no sequence found");
                         }
                         lineScan.close();

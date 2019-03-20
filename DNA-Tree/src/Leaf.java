@@ -1,8 +1,8 @@
 /**
- * @author Josh
- * @author Quinton
+ * @author Josh Rehm
+ * @author Quinton Miller
  * 
- * @version 3/17/2019
+ * @version 3/19/2019
  *
  *          This is the implementation the Leaf Node inherited from Node
  */

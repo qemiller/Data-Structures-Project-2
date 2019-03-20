@@ -157,4 +157,35 @@ public class TrieTest extends TestCase {
         dna.insert("C");
         dna.remove("AA");
     }
+
+
+    /**
+     * this tests the print function of trie.
+     */
+    public void testPrint() {
+        Trie dna = new Trie();
+        dna.insert("AA");
+        dna.insert("A");
+        assertTrue(dna.remove("A") instanceof Leaf);
+    }
+
+
+    /**
+     * tests search
+     */
+    public void testSearch() {
+        Trie dna = new Trie();
+        dna.insert("AA");
+        dna.insert("AC");
+        dna.insert("AG");
+        assertTrue(dna.insert("AT") instanceof Internal);
+        dna.insert("G");
+        dna.insert("TATA");
+        dna.insert("GT");
+        dna.search("G$");
+        dna.insert("TATAG");
+        dna.search("TATA$");
+        dna.search("A");
+    }
+
 }
