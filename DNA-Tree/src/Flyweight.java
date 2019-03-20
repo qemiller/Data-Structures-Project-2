@@ -20,6 +20,7 @@ public class Flyweight implements Node {
         // creates a new flyweight
     }
 
+    //This block will generate the flyweight, if it fails it excepts
     static {
         try {
             fly = new Flyweight();
@@ -41,6 +42,7 @@ public class Flyweight implements Node {
     };
 
 
+    //Calls the helper function
     @Override
     public Node insert(String s, int depth) {
         return insertHelper(s, depth);
@@ -64,6 +66,7 @@ public class Flyweight implements Node {
     }
 
 
+    //Calls the helper function
     @Override
     public Node remove(String s, int strIndex) {
         return removeHelper(s, strIndex);
@@ -87,7 +90,7 @@ public class Flyweight implements Node {
         return this;
     }
 
-
+    //Calls the helper function
     @Override
     public void print(int tabIndex, String type) {
         printHelper(tabIndex, type);
@@ -112,7 +115,7 @@ public class Flyweight implements Node {
         System.out.println(printTabs + "E");
     }
 
-
+    //Increments nodes visited and continues
     @Override
     public void search(String s, int strIndex, boolean exact) {
         Trie.nodeVisited();

@@ -7,7 +7,7 @@
  * @author Quinton
  * @version 3/17/2019
  *
- *          This is the deceleration of the Node class the implementation of
+ *          This is the declaration of the Node class the implementation of
  *          these functions can be found in the Flyweight, Internal, and Leaf
  *          classes.
  */
@@ -59,7 +59,7 @@ public interface Node {
     /**
      * 
      * @param s
-     *            Sequence to search th tree for
+     *            Sequence to search the tree for
      * @param strIndex
      *            index of the string sequence being looked at
      * @param exact

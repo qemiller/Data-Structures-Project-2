@@ -21,12 +21,7 @@ public class Leaf implements Node {
         this.leafData = s;
     }
 
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see Node#print()
-     */
+    //Calls the helper function
     @Override
     public void print(int tabIndex, String type) {
         printHelper(tabIndex, type);
@@ -95,7 +90,7 @@ public class Leaf implements Node {
         }
     }
 
-
+    //Calls the helper function
     @Override
     public Node insert(String s, int strIndex) {
         return insertHelper(s, strIndex);
@@ -124,7 +119,7 @@ public class Leaf implements Node {
         }
     }
 
-
+    //Calls the helper function
     @Override
     public Node remove(String s, int strIndex) {
         return removeHelper(s, strIndex);
@@ -154,7 +149,7 @@ public class Leaf implements Node {
         }
     }
 
-
+    //Calls the helper function
     @Override
     public void search(String s, int strIndex, boolean exact) {
         searchHelper(s, strIndex, exact);

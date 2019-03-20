@@ -7,6 +7,8 @@
  */
 public class Internal implements Node {
 
+    //These are the children nodes for an internal node
+    //By default they are set to flyweights
     private Node a;
     private Node c;
     private Node g;
@@ -15,7 +17,7 @@ public class Internal implements Node {
 
 
     /**
-     * default constructor for internal.
+     * default constructor for internal. Sets all nodes to flyweights
      */
     Internal() {
         a = Flyweight.getInstance();
@@ -36,7 +38,7 @@ public class Internal implements Node {
      *            The current string in the tree
      * 
      *            This creates a new internal node from the current sequence in
-     *            the tree and the new sequence
+     *            the tree and both the current and new are inserted
      */
     Internal(String s, int strIndex, String curData) {
         a = Flyweight.getInstance();
@@ -282,6 +284,16 @@ public class Internal implements Node {
     }
 
 
+    /**
+     * 
+     * @param s
+     *            string we are looking for in the tree
+     * @param strPos
+     *            index of the char in the sequence we are looking at.
+     * @param exact
+     *            true if looking for an exact match in the tree, false if we
+     *            aren't
+     */
     @Override
     public void search(String s, int strPos, boolean exact) {
         searchHelper(s, strPos, exact);
@@ -339,12 +351,8 @@ public class Internal implements Node {
         return array;
     }
 
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see Node#print()
-     */
+    //This method outputs the appropriate number of tabs,
+    //while recursively iterating through the tree for sequences
     @Override
     public void print(int tabIndex, String type) {
         String printTabs = "";

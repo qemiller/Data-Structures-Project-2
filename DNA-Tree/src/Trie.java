@@ -6,7 +6,7 @@ import java.util.Stack;
  * @version 3/19/2019
  * 
  *          This is the file that instantiates a tree and will run the functions
- *          created in the Internal, Leaf, and Flyweight classes.
+ *          created in the inherited Node classes.
  */
 public class Trie {
     /**
@@ -81,7 +81,9 @@ public class Trie {
     /**
      * 
      * @param type
-     *            the type of print for the tree to do
+     *            Offers different options for the print command,
+     *            the default is dump, but allows lengths and stats
+     *            as well
      * 
      *            Prints the tree to standard output based on type.
      */
@@ -94,7 +96,7 @@ public class Trie {
     /**
      * 
      * @param s
-     *            sequence with possible flag at end for an exact match.
+     *            sequence with possible flag at the end for an exact match.
      * 
      *            This searches through the tree for the sequence. If the
      *            sequence contains a $ flag at the end, it will search for the
